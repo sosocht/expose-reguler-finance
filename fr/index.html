@@ -1,0 +1,1021 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Réguler la finance · Exposé FRE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap" rel="stylesheet">
+<style>
+/* Design System : .claude/skills/slides-design/ds.html, copie identique dans ../ds.html
+   4 tailles seulement : détail 12 / texte 14 / chiffre 30 / titre 50 (px à 1280, exprimées en vw) ; couverture et merci plus grands */
+:root{
+  --encre:#0a0a0a; --fond:#f5f5f5; --carte:#fff; --filet:#e4e4e2;
+  --bleu:#1d9bf0; --vert:#008000; --rouge:#ff0000;
+  --sourdine:rgba(10,10,10,.55); --tenu:rgba(10,10,10,.38);
+  --t-titre:3.9vw; --t-chiffre:2.34vw; --t-texte:1.1vw; --t-detail:.94vw;
+  --sans:"Plus Jakarta Sans",system-ui,sans-serif;
+  --r:20px; --rail:6vh;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);font-size:var(--t-texte);font-weight:400;line-height:1.45;
+  color:var(--encre);background:var(--fond);scroll-snap-type:y mandatory;overflow-x:hidden}
+strong,b{font-weight:600}
+
+/* rail de sommaire : capsule en verre, numéros qui défilent, jauge en bas */
+.rail{position:fixed;top:1.4vh;bottom:1.4vh;left:.9vh;width:var(--rail);border-radius:2.6vh;border:1px solid rgba(10,10,10,.08);overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;padding:0 0 1.8vh;z-index:50;
+  background:color-mix(in srgb,#fff 28%,transparent);-webkit-backdrop-filter:blur(1.5px) saturate(1.15);backdrop-filter:blur(1.5px) saturate(1.15);
+  box-shadow:inset 1px 1px 1px rgba(255,255,255,.6),0 8px 30px rgba(10,10,10,.12)}
+.rail .liens{flex:1 1 auto;min-height:0;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:1.1vh;padding:1.6vh 0;
+  overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}
+.rail .liens::-webkit-scrollbar{display:none}
+.rail .liens a{flex:none;width:3.6vh;height:3.6vh;display:grid;place-items:center;border-radius:1.1vh;background:rgba(255,255,255,.62);border:1px solid var(--filet);
+  font-size:var(--t-detail);font-weight:600;color:var(--sourdine);text-decoration:none;transform-origin:center;transition:transform .12s ease-out,opacity .12s ease-out}
+.rail .liens a:first-child{margin-top:auto} .rail .liens a:last-child{margin-bottom:auto}
+.rail .liens a.on{color:#fff;background:var(--encre);border-color:var(--encre)}
+.rail .bar{flex:none;width:2vh;height:12vh;margin-top:.6vh;border-radius:999px;background:rgba(10,10,10,.14);overflow:hidden}
+.rail .bar i{display:block;width:100%;background:var(--bleu);height:0;border-radius:999px}
+
+section{height:100vh;height:100svh;scroll-snap-align:start;scroll-snap-stop:always;
+  padding:6.2vh 2.6vw 7.6vh calc(var(--rail) + .9vh + 2.6vw);display:flex;flex-direction:column;justify-content:flex-start;
+  border-top:1px solid var(--filet);position:relative;overflow:hidden}
+section:first-of-type{border-top:0}
+.num{position:absolute;bottom:2.6vh;right:2.6vw;font-size:var(--t-detail);font-weight:600;letter-spacing:.16em;color:var(--tenu);z-index:3}
+section>h2{flex:none;font-size:var(--t-titre);font-weight:600;letter-spacing:-.035em;line-height:1.04;margin:0 0 2.2vh;position:relative;
+  transform:translate(var(--t-dx,0),var(--t-dy,0));padding-right:9vw}
+section>h2{text-align:center;padding:0 2vw}
+.pied{position:absolute;bottom:2.6vh;left:calc(var(--rail) + .9vh + 2.6vw);right:9vw;font-size:var(--t-detail);
+  font-weight:300;color:var(--tenu);z-index:3;margin:0;white-space:nowrap;overflow:hidden}
+.pied .ia{height:1.2em;vertical-align:-.2em;margin:0 .3em 0 .1em}
+.lg-i{position:absolute;top:2.9vh;right:2.6vw;height:3vh;width:auto;z-index:6;display:block}
+.corps{flex:1;min-height:0;display:flex;flex-direction:column;gap:2.2vh}
+.lbl{font-size:var(--t-detail);font-weight:600;letter-spacing:.16em;text-transform:uppercase}
+.ic{width:6.4vh;height:6.4vh;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;flex:none;display:block}
+.hero{font-size:var(--t-titre);font-weight:500;letter-spacing:-.04em;line-height:1;word-spacing:.14em}
+.ch{font-size:var(--t-chiffre);font-weight:500;letter-spacing:-.025em;line-height:1.1}
+.sd{color:var(--sourdine)}
+
+/* S1 couverture */
+#s1{color:#fff;align-items:center;text-align:center;justify-content:center;background:#0a0a0a;padding-top:10vh}
+#s1::before{content:"";position:absolute;inset:0;background:url(../img/cover.jpg) center 45%/cover no-repeat;z-index:0}
+#s1::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(10,10,10,.6),rgba(10,10,10,.7)),linear-gradient(to top,rgba(10,10,10,.92) 0,rgba(10,10,10,.6) 26%,rgba(10,10,10,0) 48%);z-index:1}
+#s1>*{position:relative;z-index:2} #s1 .signature,#s1 .num,#s1 .lg-i{position:absolute}
+#s1 .lg-i{background:rgba(255,255,255,.92);backdrop-filter:blur(6px);border-radius:8px;padding:.5vh .8vh;height:4vh}
+#s1 h1{font-size:clamp(2.6rem,6vw,5.2rem);font-weight:600;letter-spacing:-.04em;line-height:1;margin:0 0 .35em}
+#s1 .court{font-size:var(--t-chiffre);font-weight:400;max-width:none;white-space:nowrap;margin:0;color:rgba(255,255,255,.9);line-height:1.3}
+#s1 .signature{left:0;right:0;bottom:7vh;display:flex;flex-direction:column;gap:.6vh;align-items:center;padding-left:var(--rail)}
+#s1 .ress{color:var(--bleu);font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:var(--t-texte)}
+#s1 .auteurs{color:rgba(255,255,255,.92);font-size:var(--t-texte)}
+#s1 .num{color:rgba(255,255,255,.7);z-index:3}
+#s1>.notes{position:fixed;z-index:40;text-align:left}
+
+/* S2 sommaire */
+.s2g{flex:1;min-height:0;display:grid;grid-template-columns:42% 1fr;gap:3vw;align-items:center}
+.s2q{background:var(--encre);color:#fff;border-radius:var(--r);padding:4vh 2.2vw;display:flex;flex-direction:column;gap:2.4vh}
+.s2q .t{font-size:var(--t-chiffre);font-weight:600;letter-spacing:-.025em;line-height:1.15}
+.s2q .lbl{color:var(--bleu)}
+.s2l{display:flex;flex-direction:column;gap:3.2vh}
+.s2l div{display:grid;grid-template-columns:7vh 1fr auto;gap:1.4vw;align-items:center}
+.s2l div+div{border-top:1.5px solid rgba(10,10,10,.28);padding-top:3.2vh}
+.s2l .n{font-size:var(--t-titre);font-weight:500;letter-spacing:-.04em;color:var(--bleu);line-height:1}
+.s2l b{display:block;font-size:var(--t-chiffre);font-weight:500;letter-spacing:-.025em;line-height:1.1}
+.s2l span{color:var(--sourdine)}
+.s2l em{font-style:normal;font-weight:600;font-size:var(--t-detail);letter-spacing:.14em;color:var(--tenu);text-transform:uppercase}
+
+/* S3 pourquoi réguler */
+.s3g{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:9vh}
+.s3r{display:grid;grid-template-columns:repeat(3,1fr);gap:3vw;text-align:center}
+.s3r .rs{display:flex;flex-direction:column;align-items:center;gap:1.4vh}
+.s3r .rs .ic{width:13vh;height:13vh;stroke-width:2.6;transform-box:fill-box;transform-origin:center}
+.s3r .rs:nth-child(1) .ic{color:var(--bleu)} .s3r .rs:nth-child(2) .ic{color:var(--encre)} .s3r .rs:nth-child(3) .ic{color:var(--rouge)}
+.s3r b{display:block;font-size:var(--t-chiffre);font-weight:500;letter-spacing:-.025em;line-height:1.1}
+.s3r span{color:var(--sourdine);max-width:16em}
+.s3c{display:flex;flex-direction:column;align-items:center;gap:2.4vh}
+.s3c .lbl{color:var(--sourdine)}
+.s3c .cs{display:flex;justify-content:center;gap:6vw;text-align:center}
+.s3c .cs>div{display:flex;flex-direction:column;gap:.6vh;align-items:center}
+.s3c .cs .hero{white-space:nowrap}
+.s3c .cs span:last-child{color:var(--sourdine);max-width:14em}
+
+/* S4 risque systémique */
+.s4g{flex:1;min-height:0;display:grid;grid-template-columns:1fr 36%;gap:2.4vw;align-items:center}
+.s4g svg.res{height:62vh;width:auto;aspect-ratio:640/460;justify-self:center;display:block;background:var(--carte);border:1px solid var(--filet);border-radius:var(--r)}
+.co{fill:#0a0a0a;opacity:0}
+.s4d{display:flex;flex-direction:column;justify-content:center;gap:3.4vh;min-height:0}
+.s4d .cn{display:grid;grid-template-columns:6vh 1fr;gap:1.2vw;align-items:center}
+.s4d .cn .ic{width:5.6vh;height:5.6vh;color:var(--rouge)}
+.s4d .cn b{display:block;font-size:var(--t-chiffre);font-weight:500;letter-spacing:-.025em;line-height:1.1}
+.s4d .cn b i{font-style:normal;color:var(--rouge);margin-right:.35em}
+.s4d .cn span{color:var(--sourdine)}
+.s4d .lh{background:var(--rouge);color:#fff;border-radius:var(--r);padding:2vh 1.6vw;display:flex;flex-direction:column;gap:.4vh}
+.s4d .lh .lbl{color:rgba(255,255,255,.85)}
+.pil rect{fill:#fff;stroke:#0a0a0a;stroke-width:2} .pil text{font-family:var(--sans);font-size:16px;font-weight:600;fill:#0a0a0a} .pil text tspan{fill:#ff0000}
+.nd .cc{fill:#fff;stroke:#0a0a0a;stroke-width:2.5} .nd{color:#0a0a0a}
+.nd.rg .cc{fill:var(--rouge);stroke:var(--rouge)} .nd.rg{color:#fff}
+.lk{stroke:rgba(10,10,10,.3);stroke-width:2.5;fill:none} .lk.rg{stroke:var(--rouge);stroke-width:3.5}
+.svt{font-family:var(--sans);font-size:14px;font-weight:600;fill:#0a0a0a}
+
+/* S5 autorités */
+.s5g{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:2.6vh}
+.nv{border-radius:var(--r);display:grid;grid-template-columns:8vw 1fr;gap:1.4vw;align-items:center;padding:1.6vh 1.6vw}
+.nv.m{background:rgba(29,155,240,.1)} .nv.e{background:rgba(10,10,10,.07)} .nv.f{background:rgba(0,128,0,.1)}
+.nv>.eti{font-size:var(--t-chiffre);font-weight:600;letter-spacing:-.03em;line-height:1}
+.nv.m>.eti{color:var(--bleu)} .nv.e>.eti{color:var(--encre)} .nv.f>.eti{color:var(--vert)}
+.nv .ls{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:2vw;align-items:start}
+.nv .au{display:flex;flex-direction:column;gap:.6vh}
+.nv .au img,.nv .au .tx{width:auto;max-width:13vw;height:5vh;object-fit:contain;object-position:left center}
+.nv .au .tx{width:8vw;height:5vh;display:grid;place-items:center;background:var(--vert);color:#fff;border-radius:1.4vh;font-weight:600;font-size:var(--t-texte);letter-spacing:.04em}
+.nv .au b{display:block;font-size:var(--t-chiffre);font-weight:500;letter-spacing:-.025em;line-height:1.1}
+.nv .au span{color:var(--sourdine);line-height:1.3;display:block;margin-top:.3vh}
+
+/* S6 micro / macro */
+.s6g{flex:1;min-height:0;display:grid;grid-template-columns:1fr 9vw 1fr;align-items:start;padding-top:7vh}
+.s6p{display:flex;flex-direction:column;gap:3vh;padding:0 1.6vw}
+.s6p .ic{width:11vh;height:11vh;stroke-width:2.6}
+.s6p.mi{color:var(--bleu)} .s6p.ma{color:var(--encre)}
+.s6p .tt{font-size:var(--t-titre);font-weight:600;letter-spacing:-.035em;line-height:1}
+.s6p .tt small{display:block;font-size:var(--t-chiffre);font-weight:400;letter-spacing:-.02em;color:var(--sourdine);margin-top:.8vh}
+.s6p .lg{display:flex;flex-direction:column;gap:.4vh;border-left:.7vh solid currentColor;padding-left:1.2vw;color:var(--encre)}
+.s6p.mi .lg{border-left-color:var(--bleu)}
+.s6p .lg .lbl{color:var(--sourdine)}
+.s6p .lg b{font-size:var(--t-chiffre);font-weight:500;letter-spacing:-.025em;line-height:1.15}
+.s6e{display:grid;place-items:center;align-self:center}
+.s6e span{position:relative;width:5.4vw;height:5.4vw;border-radius:50%;background:var(--encre)}
+.s6e span::before,.s6e span::after{content:"";position:absolute;left:50%;top:50%;background:#fff;border-radius:2px;transform:translate(-50%,-50%)}
+.s6e span::before{width:46%;height:7%} .s6e span::after{width:7%;height:46%}
+
+/* S7 frise */
+.s7g{flex:1;min-height:0;position:relative}
+.s7g svg{width:100%;height:100%;display:block}
+.t30{font-family:var(--sans);font-size:30px;font-weight:500;letter-spacing:-.6px;fill:#0a0a0a}
+.t14{font-family:var(--sans);font-size:15px;font-weight:400;fill:rgba(10,10,10,.62)}
+.t14b{font-family:var(--sans);font-size:15px;font-weight:600;fill:#0a0a0a}
+.t50{font-family:var(--sans);font-size:50px;font-weight:500;letter-spacing:-2px;fill:#0a0a0a}
+
+/* S8 bilans */
+.s8g{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:2.4vw}
+.s8c{border-radius:var(--r);background:var(--carte);border:1px solid var(--filet);display:flex;flex-direction:column;padding:1.8vh 1.4vw;gap:1vh;min-height:0}
+.s8c.ok{border:3px solid var(--vert)} .s8c.ko{border:3px solid var(--rouge)}
+.s8c .tete{display:flex;justify-content:space-between;align-items:baseline}
+.s8c .tete b{font-size:var(--t-chiffre);font-weight:500;letter-spacing:-.025em}
+.s8c .tete .lbl{color:var(--sourdine)}
+.s8c svg{flex:1;min-height:0;width:100%}
+.s8c .verdict{font-size:var(--t-chiffre);font-weight:600;letter-spacing:-.025em;text-align:center}
+.s8c.ok .verdict{color:var(--vert)} .s8c.ko .verdict{color:var(--rouge)}
+
+/* S9 exigences */
+.s9g{flex:1;min-height:0;display:grid;grid-template-columns:1.1fr 1fr;gap:2.6vw}
+.s9g .gr{background:var(--carte);border:1px solid var(--filet);border-radius:var(--r);padding:1.6vh 1vw;min-height:0}
+.s9g .gr svg{width:100%;height:100%;display:block}
+.s9l{display:flex;flex-direction:column;justify-content:space-between;gap:1.4vh}
+.s9l div{display:grid;grid-template-columns:13vw 1fr;gap:1.2vw;align-items:center;border-top:1.5px solid rgba(10,10,10,.28);padding-top:1.4vh;flex:1}
+.s9l div:first-child{border-top:0;padding-top:0}
+.s9l .v{font-size:var(--t-titre);font-weight:500;letter-spacing:-.04em;color:var(--bleu);line-height:1}
+.s9l .v.n{color:var(--encre)}
+.s9l b{display:block;font-size:var(--t-chiffre);font-weight:500;letter-spacing:-.025em;line-height:1.1}
+.s9l span{color:var(--sourdine)}
+
+/* S10 liquidité */
+.s10g{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:9vh}
+.s10r{display:grid;grid-template-columns:26% 1fr;gap:3vw;align-items:center}
+.s10r .bk{display:flex;flex-direction:column;gap:.4vh}
+.s10r .bk .lbl{color:var(--bleu)} .s10r .bk .sd2{color:var(--sourdine)}
+.s10r .gj{display:flex;flex-direction:column;gap:1.2vh}
+.s10r .gj svg{width:100%;height:12vh}
+.s10r .gj .fo{font-size:var(--t-chiffre);font-weight:500;letter-spacing:-.025em;line-height:1.15}
+
+/* S11 réponses 2008 */
+.s11g{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:3vw;align-content:center}
+.s11c{display:flex;flex-direction:column;gap:2.2vh;border-top:.9vh solid currentColor;padding-top:2.6vh}
+.s11c.b{color:var(--bleu)} .s11c.n{color:var(--encre)} .s11c.w{color:var(--vert)}
+.s11c .lgs{display:flex;align-items:center;gap:1.4vw;height:6.4vh}
+.s11c .lgs img{height:100%;width:auto;max-width:11vw;object-fit:contain}
+.s11c .lbl{color:var(--sourdine)}
+.s11c .an{font-size:var(--t-titre);font-weight:600;letter-spacing:-.04em;line-height:1}
+.s11c .it{display:flex;flex-direction:column;gap:.3vh;color:var(--encre)}
+.s11c .it b{font-size:var(--t-chiffre);font-weight:500;letter-spacing:-.025em;line-height:1.1}
+.s11c .it span{color:var(--sourdine)}
+
+/* S12 graphique */
+.s12g{flex:1;min-height:0;display:grid;grid-template-columns:1fr 29%;gap:2.4vw}
+.s12g .gr{background:var(--carte);border:1px solid var(--filet);border-radius:var(--r);padding:1.6vh 1vw;min-height:0}
+.s12g .gr svg{width:100%;height:100%;display:block}
+.s12d{display:flex;flex-direction:column;justify-content:center;gap:15vh}
+.s12d .bk{display:flex;flex-direction:column;gap:.6vh}
+.s12d .bk .lbl{color:var(--sourdine)}
+.s12d .bk.b .hero{color:var(--bleu)} .s12d .bk.v .hero{color:var(--vert)}
+
+/* S13 frise 2023 */
+.s13g{flex:1;min-height:0;display:grid;grid-template-rows:1fr auto;gap:2vh}
+.s13g svg{width:100%;height:100%;display:block;min-height:0}
+.s13b{display:grid;grid-template-columns:1fr 1fr;gap:2vw}
+.s13b>div{background:var(--encre);color:#fff;border-radius:var(--r);padding:1.8vh 1.6vw;display:flex;flex-direction:column;gap:.6vh;justify-content:center}
+.s13b>div.b{background:var(--bleu)}
+.s13b .ch{color:#fff}
+.s13b .lbl{opacity:.8}
+
+/* S14 SVB vs CS */
+.s14w{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:4vh}
+.s14c{display:grid;grid-template-columns:1fr 1fr}
+.s14k{display:flex;flex-direction:column;gap:2.4vh;padding:0 2.4vw}
+.s14k:first-child{padding-left:0} .s14k+.s14k{border-left:1.5px solid rgba(10,10,10,.28);padding-right:0}
+.s14k.sv{color:var(--rouge)} .s14k.cs{color:var(--bleu)}
+.s14k .hd{display:flex;flex-direction:column;gap:1vh}
+.s14k .hd img{height:4.6vh;width:auto;max-width:12vw;object-fit:contain;object-position:left}
+.s14k .hd .lbl{color:var(--sourdine)}
+.s14k .hd .tt{font-size:var(--t-chiffre);font-weight:600;letter-spacing:-.025em;line-height:1.1}
+.s14k .ls{display:flex;flex-direction:column}
+.s14k .ls>div{display:grid;grid-template-columns:max-content 1fr;gap:1.4vw;align-items:center;padding:1.6vh 0;border-top:1px solid rgba(10,10,10,.2)}
+.s14k .ls .v{white-space:nowrap;font-size:var(--t-titre);font-weight:500;letter-spacing:-.04em;line-height:1}
+.s14k .ls span:last-child{color:var(--encre);font-size:var(--t-texte);line-height:1.3}
+.s14q{margin:0;padding-top:3vh;border-top:1.5px solid rgba(10,10,10,.28);text-align:center;color:var(--rouge);font-size:var(--t-chiffre);font-weight:500;letter-spacing:-.025em;line-height:1.2}
+.s14q small{display:block;margin-top:1vh;font-size:var(--t-detail);font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sourdine)}
+
+/* S15 calendrier */
+.s15g{flex:1;min-height:0}
+.s15g svg{width:100%;height:100%;display:block}
+
+/* S16 réponse */
+.s16g{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6vh;text-align:center}
+.s16g .q{margin:0;color:var(--sourdine)}
+.s16g .hero{display:block;margin-top:1.2vh}
+.s16r{display:grid;grid-template-columns:repeat(3,1fr);gap:3vw;width:100%}
+.s16r .it{display:flex;flex-direction:column;align-items:center;gap:1.4vh}
+.s16r .bd{width:11vh;height:11vh;border-radius:50%;display:grid;place-items:center;color:#fff}
+.s16r .it.v .bd{background:var(--vert)} .s16r .it.r .bd{background:var(--rouge)} .s16r .it.b .bd{background:var(--bleu)}
+.s16r .bd .ic{width:6.4vh;height:6.4vh}
+.s16r b{display:block;font-size:var(--t-chiffre);font-weight:600;letter-spacing:-.025em;line-height:1.1}
+.s16r span{color:var(--sourdine);max-width:19em;line-height:1.35}
+.s16g .sm{margin:0;font-size:var(--t-chiffre);font-weight:500;letter-spacing:-.025em;color:var(--bleu)}
+
+/* S17 sources */
+.s17g{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:3vw;align-content:stretch}
+.s17g ol{margin:0;padding:0;list-style:none;counter-reset:n;display:flex;flex-direction:column;justify-content:space-between;gap:1.9vh}
+.s17g li{counter-increment:n;display:grid;grid-template-columns:2.4vw 1fr;line-height:1.3}
+.s17g li::before{content:counter(n);color:var(--bleu);font-weight:600}
+.s17g li b{font-weight:600}
+.s17g ol.c2{counter-reset:n 7}
+
+/* S18 merci */
+#s18{padding:0;justify-content:center;align-items:center;text-align:center;overflow:hidden;color:#fff;background:#0a0a0a}
+#s18::before{content:"";position:absolute;inset:0;background:url(../img/cover.jpg) center 45%/cover no-repeat;z-index:0}
+#s18::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(10,10,10,.62),rgba(10,10,10,.74));z-index:1}
+#s18>h2{font-size:clamp(3rem,8vw,7.6rem);margin:0;padding:0;text-align:center;letter-spacing:-.05em;line-height:1;position:relative;z-index:2;transform:none}
+#s18>h2 small{display:block;font-size:.34em;font-weight:500;letter-spacing:-.02em;margin-top:1.8vh;color:rgba(255,255,255,.82)}
+#s18 .qq{position:relative;z-index:2;margin:5vh 0 0;font-size:var(--t-chiffre);font-weight:500;letter-spacing:-.025em;color:var(--bleu)}
+#s18 .lg-i{background:rgba(255,255,255,.92);border-radius:8px;padding:.5vh .8vh;height:4vh;z-index:6}
+#s18 .num{color:rgba(255,255,255,.7)}
+
+/* notes orateur, touche N */
+.notes{display:none;text-align:left;position:fixed;left:var(--rail);right:0;bottom:0;background:var(--encre);color:#fff;padding:1.6vh 4vw;
+  font-size:var(--t-texte);line-height:1.5;max-height:56vh;overflow:auto;z-index:40;cursor:text;outline:0;white-space:pre-line}
+body.notesvues section.ici .notes{display:block}
+.notes:focus{box-shadow:inset 0 3px 0 var(--bleu)}
+.notes::after{content:attr(data-aide);display:block;margin-top:.7em;font-size:var(--t-detail);color:rgba(255,255,255,.45);user-select:none}
+.toast{position:fixed;left:50%;bottom:3vh;transform:translateX(-50%);background:var(--bleu);color:#fff;border-radius:999px;padding:.5em 1.2em;font-size:var(--t-texte);font-weight:600;z-index:95;opacity:0;transition:opacity .25s;pointer-events:none}
+.toast.on{opacity:1}
+
+/* ===== animations : CSS pur, rejouées à l'arrivée sur la slide (classe .ici), absentes à l'impression ===== */
+@media (prefers-reduced-motion:no-preference){
+  @keyframes a-titre{from{opacity:0;transform:translateY(-5vh)}}
+  @keyframes a-gauche{from{opacity:0;transform:translateX(-9vw)}}
+  @keyframes a-droite{from{opacity:0;transform:translateX(9vw)}}
+  @keyframes a-monte{from{opacity:0;transform:translateY(7vh)}}
+  @keyframes a-descend{from{opacity:0;transform:translateY(-7vh)}}
+  @keyframes a-centre{from{opacity:0;transform:scale(.92)}}
+  @keyframes a-fade{from{opacity:0}}
+  @keyframes a-boing{0%{opacity:0;transform:scale(.3)}70%{opacity:1;transform:scale(1.12)}100%{transform:scale(1)}}
+  @keyframes a-trace{from{clip-path:inset(0 100% 0 0)}}
+  @keyframes a-remplit{from{transform:scaleX(0)}}
+  @keyframes a-pousse{from{transform:scaleY(0)}}
+  @keyframes a-dot{from{opacity:0;transform:scale(.2)}}
+  @keyframes a-rgf{from{fill:#fff;stroke:#0a0a0a}}
+  @keyframes a-rgc{from{color:#0a0a0a}}
+  @keyframes a-rgl{from{stroke:rgba(10,10,10,.3);stroke-width:2.5px}}
+  @keyframes a-iris{from{width:260vmax;height:260vmax;margin:-130vmax 0 0 -130vmax}}
+  @keyframes a-couv{from{opacity:0;transform:translateY(5vh)}}
+  @keyframes a-couvbg{from{transform:scale(1.18)}}
+  @keyframes a-rg{to{transform:translateX(-101%)}}
+  @keyframes a-rd{to{transform:translateX(101%)}}
+  @keyframes a-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+
+  section.ici>h2{animation:a-titre .8s ease-out backwards}
+  /* S1 : le rideau s'ouvre, tout arrive en même temps, tout se termine à 1,6 s */
+  .rideau{display:none}
+  #s1.ici>.rideau{display:block;position:absolute;top:0;bottom:0;width:51%;background:var(--encre);z-index:6;pointer-events:none}
+  #s1.ici>.rideau.g{left:0;animation:a-rg 1.6s cubic-bezier(.77,0,.18,1) forwards}
+  #s1.ici>.rideau.d{right:0;animation:a-rd 1.6s cubic-bezier(.77,0,.18,1) forwards}
+  #s1.ici h1,#s1.ici .court,#s1.ici .signature{animation:a-couv 1.6s cubic-bezier(.77,0,.18,1) backwards}
+  #s1.ici::before{animation:a-couvbg 1.6s cubic-bezier(.77,0,.18,1) backwards}
+  #s1.ici .lg-i,#s1.ici .num{animation:a-fade 1.6s ease-out backwards}
+  /* S2 : question de la gauche, parties ligne par ligne depuis la droite */
+  #s2.ici .s2q{animation:a-gauche .9s ease-out backwards}
+  #s2.ici .s2l div{animation:a-droite .9s ease-out backwards}
+  #s2.ici .s2l div:nth-child(2){animation-delay:.15s} #s2.ici .s2l div:nth-child(3){animation-delay:.3s} #s2.ici .s2l div:nth-child(4){animation-delay:.45s}
+  /* S3 */
+  @keyframes v-loupe{0%,100%{transform:translate(-.7vh,-.5vh) rotate(-9deg)}50%{transform:translate(.9vh,.7vh) rotate(9deg)}}
+  @keyframes v-banque{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+  @keyframes v-alerte{0%,60%,100%{transform:rotate(0)}15%{transform:rotate(-8deg)}30%{transform:rotate(8deg)}45%{transform:rotate(-5deg)}}
+  #s3.ici .s3r .rs{animation:a-monte .9s ease-out backwards}
+  #s3.ici .s3r .rs:nth-child(2){animation-delay:.15s} #s3.ici .s3r .rs:nth-child(3){animation-delay:.3s}
+  #s3.ici .s3r .rs:nth-child(1) .ic{animation:v-loupe 4.5s 1s ease-in-out infinite}
+  #s3.ici .s3r .rs:nth-child(2) .ic{animation:v-banque 3.6s 1s ease-in-out infinite}
+  #s3.ici .s3r .rs:nth-child(3) .ic{animation:v-alerte 4.2s 1s ease-in-out infinite}
+  #s3.ici .s3c{animation:a-monte .9s .5s ease-out backwards}
+  /* S4 : la contagion se propage de Lehman vers les autres */
+  #s4.ici svg.res{animation:a-fade .8s ease-out backwards}
+  /* le récit se joue au rythme de la parole (estimé à 150 mots par minute, voir les notes) : origine 6.4 s, 1 interconnexion 26.3 s, 2 panique 39.1 s, 3 ventes forcées 71.1 s, exemple 92.3 s */
+  #s4.ici svg.res{animation:a-fade .8s ease-out backwards}
+  #s4.ici .nd.rg{animation:a-rgc .6s var(--d) ease-out backwards}
+  #s4.ici .nd.rg .cc{animation:a-rgf .6s var(--d) ease-out backwards}
+  #s4.ici .lk.rg{animation:a-rgl .6s var(--d) ease-out backwards}
+  @keyframes v-chute{to{transform:scale(.72)}}
+  @keyframes v-sort{0%{opacity:0;transform:translate(0,0)}20%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy))}}
+  #s4 .in{transform-box:fill-box;transform-origin:center}
+  #s4.ici .nd.rg .in{animation:v-chute .8s 76.4s ease-in-out forwards}
+  #s4.ici .co{animation:v-sort 1.4s var(--c) 2 ease-out backwards}
+  #s4.ici .s4d .cn{animation:a-fade .7s ease-out backwards}
+  #s4.ici .s4d .cn:nth-child(1){animation-delay:26.3s} #s4.ici .s4d .cn:nth-child(2){animation-delay:39.1s} #s4.ici .s4d .cn:nth-child(3){animation-delay:71.1s}
+  #s4.ici .s4d .lh{animation:a-monte .9s 92.3s ease-out backwards}
+  #s4.ici .leh{animation:a-fade .8s 92.3s ease-out backwards}
+  #s4.ici .pil{animation:a-fade .6s ease-out backwards}
+  #s4.ici .p1{animation-delay:26.3s} #s4.ici .p2{animation-delay:39.1s} #s4.ici .p3{animation-delay:71.1s}
+  /* S5 : étiquette depuis la gauche, autorités depuis la droite */
+  #s5.ici .nv{animation:a-monte .9s ease-out backwards}
+  #s5.ici .nv.e{animation-delay:.2s} #s5.ici .nv.f{animation-delay:.4s}
+  /* S6 : comparaison des deux côtés */
+  #s6.ici .s6p.mi{animation:a-gauche 1s cubic-bezier(.34,1.3,.64,1) backwards}
+  #s6.ici .s6p.ma{animation:a-droite 1s cubic-bezier(.34,1.3,.64,1) backwards}
+  #s6.ici .s6e span{animation:a-boing .7s .9s ease-out backwards}
+  /* S7 : la frise se trace, les jalons arrivent dans l'ordre */
+  #s7.ici .frz{animation:a-trace 1.6s ease-out backwards}
+  #s7.ici .jl{animation:a-boing .6s ease-out backwards}
+  #s7.ici .jl:nth-of-type(1){animation-delay:.2s} #s7.ici .jl:nth-of-type(2){animation-delay:.6s} #s7.ici .jl:nth-of-type(3){animation-delay:1s} #s7.ici .jl:nth-of-type(4){animation-delay:1.4s} #s7.ici .jl:nth-of-type(5){animation-delay:1.8s}
+  #s7.ici .jt{animation:a-fade .7s ease-out backwards}
+  #s7.ici .jt:nth-of-type(1){animation-delay:.3s} #s7.ici .jt:nth-of-type(2){animation-delay:.7s} #s7.ici .jt:nth-of-type(3){animation-delay:1.1s} #s7.ici .jt:nth-of-type(4){animation-delay:1.5s} #s7.ici .jt:nth-of-type(5){animation-delay:1.9s}
+  /* S8 : deux bilans, la perte apparaît dans chacun */
+  #s8.ici .s8c.ok{animation:a-gauche .9s ease-out backwards}
+  #s8.ici .s8c.ko{animation:a-droite .9s ease-out backwards}
+  #s8.ici .perte{animation:a-fade .6s 1.1s ease-out backwards}
+  /* S9 : les barres montent */
+  #s9.ici .brr{transform-box:fill-box;transform-origin:50% 100%;animation:a-pousse .9s ease-out backwards}
+  #s9.ici .brr:nth-of-type(2){animation-delay:.3s} #s9.ici .brr:nth-of-type(3){animation-delay:.6s} #s9.ici .brr:nth-of-type(4){animation-delay:.9s} #s9.ici .brr:nth-of-type(5){animation-delay:1.2s}
+  #s9.ici .s9l div{animation:a-droite .9s ease-out backwards}
+  #s9.ici .s9l div:nth-child(2){animation-delay:.15s} #s9.ici .s9l div:nth-child(3){animation-delay:.3s} #s9.ici .s9l div:nth-child(4){animation-delay:.45s}
+  /* S10 : les jauges se remplissent */
+  #s10.ici .s10r .bk{animation:a-gauche .9s ease-out backwards}
+  #s10.ici .jau{transform-box:fill-box;transform-origin:0 50%;animation:a-remplit 1.4s .4s ease-out backwards}
+  #s10.ici .s10r .gj{animation:a-fade .9s ease-out backwards}
+  /* S11 : trois réponses, chacune de son côté */
+  #s11.ici .s11c{animation:a-monte .9s ease-out backwards}
+  #s11.ici .s11c.n{animation-delay:.2s} #s11.ici .s11c.w{animation-delay:.4s}
+  /* S12 : les années défilent, une barre après l'autre */
+  #s12.ici .bz{transform-box:fill-box;transform-origin:50% 100%;animation:a-pousse .7s ease-out backwards}
+  #s12.ici .bz:nth-of-type(1){animation-delay:.1s} #s12.ici .bz:nth-of-type(2){animation-delay:.3s} #s12.ici .bz:nth-of-type(3){animation-delay:.5s} #s12.ici .bz:nth-of-type(4){animation-delay:.7s} #s12.ici .bz:nth-of-type(5){animation-delay:.9s} #s12.ici .bz:nth-of-type(6){animation-delay:1.1s} #s12.ici .bz:nth-of-type(7){animation-delay:1.3s} #s12.ici .bz:nth-of-type(8){animation-delay:1.5s}
+  #s12.ici .s12d .bk{animation:a-droite .9s .2s ease-out backwards}
+  #s12.ici .l7{animation:a-trace 1.6s 1.4s ease-out backwards}
+  #s12.ici .vl{animation:a-fade .9s 1.7s ease-out backwards}
+  #s12.ici .s12d .bk .hero{animation:a-monte .9s .8s ease-out backwards}
+  #s12.ici .s12d .bk:nth-child(2) .hero{animation-delay:1.3s}
+  /* S13 : la ligne rouge se trace, les faillites tombent dans l'ordre */
+  #s13.ici .frz{animation:a-trace 1.4s ease-out backwards}
+  #s13.ici .fl{animation:a-boing .6s ease-out backwards}
+  #s13.ici .fl:nth-of-type(1){animation-delay:.3s} #s13.ici .fl:nth-of-type(2){animation-delay:.7s} #s13.ici .fl:nth-of-type(3){animation-delay:1.1s} #s13.ici .fl:nth-of-type(4){animation-delay:1.5s}
+  #s13.ici .ft{animation:a-fade .7s ease-out backwards}
+  #s13.ici .ft:nth-of-type(1){animation-delay:.4s} #s13.ici .ft:nth-of-type(2){animation-delay:.8s} #s13.ici .ft:nth-of-type(3){animation-delay:1.2s} #s13.ici .ft:nth-of-type(4){animation-delay:1.6s}
+  #s13.ici .s13b{animation:a-monte .9s .5s ease-out backwards}
+  /* S14 : deux cas face à face, la conclusion monte */
+  #s14.ici .s14k.sv{animation:a-gauche .9s ease-out backwards}
+  #s14.ici .s14k.cs{animation:a-droite .9s .2s ease-out backwards}
+  #s14.ici .s14q{animation:a-monte .9s .7s ease-out backwards}
+  /* S15 : lignes du calendrier tracées l'une après l'autre */
+  #s15.ici .cal{animation:a-fade .8s ease-out backwards}
+  #s15.ici .cal:nth-of-type(1){animation-delay:.1s} #s15.ici .cal:nth-of-type(2){animation-delay:.4s} #s15.ici .cal:nth-of-type(3){animation-delay:.7s} #s15.ici .cal:nth-of-type(4){animation-delay:1s} #s15.ici .cal:nth-of-type(5){animation-delay:1.3s}
+  /* S16 */
+  #s16.ici .s16r .it{animation:a-monte .9s ease-out backwards}
+  #s16.ici .s16r .it:nth-child(2){animation-delay:.2s} #s16.ici .s16r .it:nth-child(3){animation-delay:.4s}
+  #s16.ici .s16g .sm{animation:a-fade .9s 1s ease-out backwards}
+  /* S17 */
+  #s17.ici .s17g ol{animation:a-fade .9s ease-out backwards}
+  /* S18 : un cercle noir se referme sur le texte */
+  #s18.ici::before{animation:a-couvbg 1.8s cubic-bezier(.6,0,.3,1) backwards}
+  #s18.ici>h2{animation:a-fade 1s .6s ease-out backwards}
+  #s18.ici .qq{animation:a-fade 1s 1.2s ease-out backwards}
+}
+@media print{
+  @page{size:1280px 720px;margin:0}
+  :root{--rail:0px}
+  .notes,.rail,.toast,.rideau,.iris{display:none!important}
+  html,body{scroll-snap-type:none}
+  section{break-inside:avoid;page-break-after:always;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  section:last-of-type{page-break-after:auto}
+  section{padding-left:calc(.9vh + 2.6vw + 6vh)}
+  .pied{left:calc(.9vh + 2.6vw + 6vh)}
+}
+.fl,.jl{transform-box:fill-box;transform-origin:center}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-banque" viewBox="0 0 64 64"><path d="M8 26L32 10l24 16z"/><path d="M14 31v19M26 31v19M38 31v19M50 31v19M8 55h48"/></symbol>
+<symbol id="i-personne" viewBox="0 0 64 64"><circle cx="32" cy="20" r="10"/><path d="M12 56c0-12 9-20 20-20s20 8 20 20"/></symbol>
+<symbol id="i-balance" viewBox="0 0 64 64"><path d="M32 8v44M18 57h28M10 18h44"/><path d="M10 18L2 36h16zM54 18l-8 18h16z"/></symbol>
+<symbol id="i-loupe" viewBox="0 0 64 64"><circle cx="27" cy="27" r="17"/><path d="M40 40l17 17"/></symbol>
+<symbol id="i-alerte" viewBox="0 0 64 64"><path d="M32 8L58 54H6z"/><path d="M32 26v14M32 47v1"/></symbol>
+<symbol id="i-reseau" viewBox="0 0 64 64"><circle cx="14" cy="16" r="7"/><circle cx="50" cy="16" r="7"/><circle cx="32" cy="50" r="7"/><path d="M21 16h22M17 22l12 22M47 22L35 44"/></symbol>
+<symbol id="i-baisse" viewBox="0 0 64 64"><path d="M6 14l18 20 12-10 22 28"/><path d="M42 52h16V36"/></symbol>
+<symbol id="i-check" viewBox="0 0 64 64"><circle cx="32" cy="32" r="24"/><path d="M20 33l8 8 16-18"/></symbol>
+<symbol id="i-bouclier" viewBox="0 0 64 64"><path d="M32 6l22 8v16c0 14-9 24-22 28C19 54 10 44 10 30V14z"/><path d="M22 32l8 8 14-16"/></symbol>
+</defs></svg>
+
+<nav class="rail" aria-label="Sommaire">
+  <div class="liens">
+    <a href="#s1">1</a><a href="#s2">2</a><a href="#s3">3</a><a href="#s4">4</a><a href="#s5">5</a><a href="#s6">6</a><a href="#s7">7</a><a href="#s8">8</a><a href="#s9">9</a><a href="#s10">10</a><a href="#s11">11</a><a href="#s12">12</a><a href="#s13">13</a><a href="#s14">14</a><a href="#s15">15</a><a href="#s16">16</a><a href="#s17">17</a><a href="#s18">18</a>
+  </div>
+  <div class="bar"><i></i></div>
+</nav>
+
+<!-- S1 couverture (structure validée : logo IUT, titre centré, texte court, signature, numéro) -->
+<section id="s1">
+  <div class="rideau g"></div><div class="rideau d"></div>
+  <img class="lg-i" src="../assets/logo-iut.png" alt="IUT de Lille, Roubaix">
+  <h1>Réguler la finance</h1>
+  <p class="court">Les règles imposées aux banques protègent-elles réellement l'économie&nbsp;?</p>
+  <div class="signature">
+    <div class="ress">R5.03 Financement et régulation de l'économie · Mme Mokrani El Bougrin</div>
+    <div class="auteurs">Romane Da Silva &amp; Sofian Chtioui · Groupe 2 · BUT 3 TC MDEE, IUT de Roubaix · 2026-2027</div>
+  </div>
+  <div class="num">1 / 18</div>
+  <div class="notes">Bonjour à tous. Aujourd'hui, Romane et moi, on va vous présenter le dernier sujet du cours : comment on régule la finance.</div>
+</section>
+
+<section id="s2">
+  <img class="lg-i" src="../assets/logo-iut.png" alt="IUT de Lille, Roubaix">
+  <h2>Sommaire</h2>
+  <div class="s2g">
+    <div class="s2q"><span class="lbl">Problématique</span><div class="t">Les règles imposées aux banques protègent-elles réellement l'économie&nbsp;?</div></div>
+    <div class="s2l">
+      <div><span class="n">1</span><p><b>Pourquoi réguler</b><span>Les défaillances, le risque systémique</span></p><em>Slides 3 à 4</em></div>
+      <div><span class="n">2</span><p><b>Qui régule, avec quels outils</b><span>Autorités, normes de Bâle, fonds propres, liquidité</span></p><em>Slides 5 à 11</em></div>
+      <div><span class="n">3</span><p><b>La crise de 2023</b><span>SVB, Credit Suisse, la situation actuelle</span></p><em>Slides 12 à 15</em></div>
+      <div><span class="n">4</span><p><b>Conclusion</b><span>Ce que protègent les règles, ce qu'elles ne protègent pas</span></p><em>Slide 16</em></div>
+    </div>
+  </div>
+  <div class="num">2 / 18</div>
+  <div class="notes">Pour aborder notre sujet, on s'est basés sur la problématique suivante : les règles imposées aux banques protègent-elles réellement l'économie ?
+Pour y répondre, on va d'abord vous montrer pourquoi il faut réguler les banques : les raisons, les défaillances, et ce qu'on appelle le risque systémique. Ensuite, on verra qui régule et avec quels outils. On vous parlera bien évidemment de la fameuse crise de 2023, qui a servi de test à ces règles. Et on conclura sur ce que ces règles protègent, et ce qu'elles ne protègent pas.</div>
+</section>
+
+<section id="s3">
+  <img class="lg-i" src="../assets/logo-iut.png" alt="IUT de Lille, Roubaix">
+  <h2>Pourquoi réguler les banques</h2>
+  <div class="s3g">
+    <div class="s3r">
+      <div class="rs"><svg class="ic"><use href="#i-loupe"/></svg><p><b>Asymétrie d'information</b><span>Le déposant ne peut pas juger sa banque</span></p></div>
+      <div class="rs"><svg class="ic"><use href="#i-banque"/></svg><p><b>Aléa moral</b><span>Too big to fail : la banque risque, l'État rattrape</span></p></div>
+      <div class="rs"><svg class="ic"><use href="#i-alerte"/></svg><p><b>Externalité</b><span>La faillite d'une banque coûte à toute l'économie</span></p></div>
+    </div>
+    <div class="s3c"><span class="lbl">Le coût de 2008</span>
+      <div class="cs">
+        <div><span class="hero">1 459 Md€</span><span>d'aides en capital approuvées, UE, 2008 à 2017</span></div>
+        <div><span class="hero">3 659 Md€</span><span>d'aides de liquidité approuvées, UE</span></div>
+        <div><span class="hero" style="color:var(--rouge)">-4,3&nbsp;%</span><span>de PIB aux États-Unis, du pic au creux</span></div>
+      </div>
+    </div>
+  </div>
+  <p class="pied">Sources : Cour des comptes européenne, Control of State aid to banks (2019), (consulté le 20/11/2026) ; Federal Reserve History, Great Recession, (consulté le 20/11/2026)</p>
+  <div class="num">3 / 18</div>
+  <div class="notes">Alors, pourquoi réguler les banques ? C'est tout simplement parce qu'une banque n'est pas une entreprise comme les autres. Elle est particulière, et ça pour trois raisons.
+La première, c'est l'asymétrie d'information, qu'on a vue en séance 1. Souvenez-vous de la start-up : on ne pouvait pas vérifier son business plan, donc on faisait confiance à la banque. Mais vous, déposant, c'est-à-dire client qui a de l'argent sur son compte, vous êtes dans la même situation face à votre banque : vous ne voyez ni ses crédits ni ses pertes.
+La deuxième, c'est l'aléa moral : quand on sait qu'on sera protégé, on prend plus de risques. Si une banque est trop grosse pour tomber, « too big to fail », l'État la sauve, parce que sa chute entraînerait toute l'économie avec elle. Donc elle est tentée de prendre plus de risques, puisque les gains sont pour elle et les pertes pour tout le monde.
+La troisième, c'est l'externalité : un coût que subissent des gens qui n'ont rien décidé. Quand une banque tombe, ça coûte à toute l'économie.
+Et c'est ce qui s'est passé en 2008. Les États européens ont approuvé 1 459 milliards d'euros d'aides en capital, de l'argent public mis dans les banques pour boucher leurs pertes, et 3 659 milliards d'aides de liquidité, des garanties et des prêts pour qu'elles puissent payer leurs dettes à court terme. Attention, ce sont des montants approuvés, tout n'a pas été utilisé. Et le PIB américain, donc la richesse produite dans l'année, a reculé de 4,3 % entre son point haut et son point bas.
+Si un commerce ferme, ça touche son propriétaire et ses clients. Si une banque tombe, ça touche tout le monde. C'est pour ça qu'on impose des règles aux banques, et pas à un commerce ordinaire.</div>
+</section>
+
+<section id="s4">
+  <img class="lg-i" src="../assets/logo-iut.png" alt="IUT de Lille, Roubaix">
+  <h2>Le risque systémique</h2>
+  <div class="s4g">
+    <svg class="res" viewBox="60 28 640 460" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Réseau de banques : la faillite de Lehman contamine les autres">
+      <g fill="none">
+        <path class="lk" d="M270 240L130 120M270 240L310 80M270 240L450 180M270 240L120 350M270 240L340 410M130 120L120 350"/>
+        <path class="lk rg" style="--d:28.8s" d="M270 240L130 120"/><path class="lk rg" style="--d:28.8s" d="M270 240L310 80"/><path class="lk rg" style="--d:28.8s" d="M270 240L450 180"/><path class="lk rg" style="--d:28.8s" d="M270 240L120 350"/><path class="lk rg" style="--d:28.8s" d="M270 240L340 410"/>
+        <path class="lk" d="M450 180L610 100M450 180L620 300M340 410L490 440M620 300L490 440M310 80L610 100"/>
+        <path class="lk rg" style="--d:52.7s" d="M450 180L610 100"/><path class="lk rg" style="--d:52.7s" d="M450 180L620 300"/><path class="lk rg" style="--d:52.7s" d="M340 410L490 440"/><path class="lk rg" style="--d:52.7s" d="M310 80L610 100"/>
+      </g>
+      <g class="nd rg" style="--d:6.4s" transform="translate(270 240)"><g class="in"><circle class="cc" r="40"/><use class="icu" href="#i-banque" x="-22" y="-22" width="44" height="44" style="fill:none;stroke:currentColor;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round"/></g></g>
+      <text class="svt leh" x="270" y="304" text-anchor="middle" fill="#ff0000" stroke="#fff" stroke-width="5" paint-order="stroke">Lehman Brothers</text>
+      <g style="fill:none;stroke:currentColor;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round">
+        <g class="nd rg" style="--d:28.8s" transform="translate(130 120)"><g class="in"><circle class="cc" r="32"/><use href="#i-banque" x="-18" y="-18" width="36" height="36"/></g></g>
+        <g class="nd rg" style="--d:28.8s" transform="translate(310 80)"><g class="in"><circle class="cc" r="32"/><use href="#i-banque" x="-18" y="-18" width="36" height="36"/></g></g>
+        <g class="nd rg" style="--d:28.8s" transform="translate(450 180)"><g class="in"><circle class="cc" r="32"/><use href="#i-banque" x="-18" y="-18" width="36" height="36"/></g></g>
+        <g class="nd rg" style="--d:28.8s" transform="translate(120 350)"><g class="in"><circle class="cc" r="32"/><use href="#i-banque" x="-18" y="-18" width="36" height="36"/></g></g>
+        <g class="nd rg" style="--d:28.8s" transform="translate(340 410)"><g class="in"><circle class="cc" r="32"/><use href="#i-banque" x="-18" y="-18" width="36" height="36"/></g></g>
+        <g class="nd rg" style="--d:52.7s" transform="translate(610 100)"><g class="in"><circle class="cc" r="32"/><use href="#i-banque" x="-18" y="-18" width="36" height="36"/></g></g>
+        <g class="nd rg" style="--d:52.7s" transform="translate(620 300)"><g class="in"><circle class="cc" r="32"/><use href="#i-banque" x="-18" y="-18" width="36" height="36"/></g></g>
+        <g class="nd rg" style="--d:52.7s" transform="translate(490 440)"><g class="in"><circle class="cc" r="32"/><use href="#i-banque" x="-18" y="-18" width="36" height="36"/></g></g>
+      </g>
+      <circle class="co" cx="610" cy="100" r="7" style="--dx:70px;--dy:-45px;--c:49.2s"/>
+      <circle class="co" cx="610" cy="100" r="7" style="--dx:76px;--dy:-40px;--c:49.45s"/>
+      <circle class="co" cx="610" cy="100" r="7" style="--dx:82px;--dy:-35px;--c:49.7s"/>
+      <circle class="co" cx="620" cy="300" r="7" style="--dx:75px;--dy:25px;--c:49.2s"/>
+      <circle class="co" cx="620" cy="300" r="7" style="--dx:81px;--dy:30px;--c:49.45s"/>
+      <circle class="co" cx="620" cy="300" r="7" style="--dx:87px;--dy:35px;--c:49.7s"/>
+      <circle class="co" cx="490" cy="440" r="7" style="--dx:-55px;--dy:28px;--c:49.2s"/>
+      <circle class="co" cx="490" cy="440" r="7" style="--dx:-49px;--dy:33px;--c:49.45s"/>
+      <circle class="co" cx="490" cy="440" r="7" style="--dx:-43px;--dy:38px;--c:49.7s"/>
+      <g class="pil p1"><rect x="105" y="158" width="206" height="34" rx="17"/><text x="208" y="181" text-anchor="middle"><tspan>1</tspan>  Prêts entre banques</text></g>
+      <g class="pil p2"><rect x="446" y="226" width="208" height="34" rx="17"/><text x="550" y="249" text-anchor="middle"><tspan>2</tspan>  Panique des déposants</text></g>
+      <g class="pil p3"><rect x="392" y="366" width="176" height="34" rx="17"/><text x="480" y="389" text-anchor="middle"><tspan>3</tspan>  Ventes forcées</text></g>
+    </svg>
+    <div class="s4d">
+      <div class="cn"><svg class="ic"><use href="#i-reseau"/></svg><p><b><i>1</i>Interconnexion</b><span>Les banques se prêtent entre elles</span></p></div>
+      <div class="cn"><svg class="ic"><use href="#i-personne"/></svg><p><b><i>2</i>Panique</b><span>Les déposants retirent leur argent en masse</span></p></div>
+      <div class="cn"><svg class="ic"><use href="#i-baisse"/></svg><p><b><i>3</i>Ventes forcées</b><span>Les actifs vendus dans l'urgence perdent leur valeur</span></p></div>
+      <div class="lh"><span class="lbl">Lehman Brothers, mai 2008</span><span class="hero">639 Md$</span><span>possédés par la banque</span></div>
+    </div>
+  </div>
+  <p class="pied">Source : NBC News, faillite de Lehman, 15/09/2008, bilan du 31/05/2008, (consulté le 20/11/2026)</p>
+  <div class="num">4 / 18</div>
+  <div class="notes">Parlons maintenant du risque systémique : c'est ce qu'on appelle l'effet domino. La difficulté d'une seule banque se propage à tout le système, puis à l'économie. Dans le cours 3, la prof a distingué trois risques, et celui-ci, c'est le risque systémique : celui où le système lui-même peut s'effondrer. Il y a trois chemins, que vous voyez numérotés sur le schéma.
+Le premier, c'est l'interconnexion. Les banques se prêtent de l'argent entre elles. Donc quand l'une ne rembourse plus, ses prêteurs perdent de l'argent à leur tour, et deviennent fragiles à leur tour.
+Le deuxième, c'est la panique. Les déposants, ces clients qui ont de l'argent sur leur compte, ne connaissent pas l'état réel de leur banque. Dès qu'ils ont un doute, ils retirent leur argent en même temps : c'est la ruée bancaire. Et même une banque saine ne peut pas payer tout le monde, parce qu'une banque, on l'a vu en séance 1, collecte des dépôts mais les transforme en crédits : l'argent n'est pas dans le coffre, il est prêté.
+Le troisième, ce sont les ventes forcées. Pour trouver de l'argent vite, les banques bradent leurs actifs, c'est-à-dire ce qu'elles possèdent, et font baisser leur prix pour tout le monde. C'est comme si un voisin vendait sa maison en urgence très en dessous du marché : toutes les maisons du quartier vaudraient moins.
+L'exemple le plus connu, c'est Lehman Brothers, une grande banque d'investissement américaine. Pour que vous compreniez le montant : en mai 2008, elle possédait 639 milliards de dollars d'actifs, c'est-à-dire tout ce qu'elle détenait, des crédits accordés et des titres financiers. Le problème, c'est qu'une grande partie était liée à des crédits immobiliers américains accordés à des ménages peu solvables, les fameux « subprimes ». Quand le marché immobilier américain s'est retourné, ces actifs ont perdu leur valeur, et les autres banques, qui doutaient d'elle, ont arrêté de lui prêter. Le 15 septembre 2008, elle fait faillite, et l'État américain ne la sauve pas. Les banques qui lui avaient prêté de l'argent perdent à leur tour, et surtout, elles n'osent plus se prêter entre elles. En quelques jours, le crédit se bloque et la crise devient mondiale.
+Retenez que le risque du système n'est pas la somme des risques de chaque banque : c'est l'effet de réseau. Donc qui surveille tout ça ?</div>
+</section>
+
+<section id="s5">
+  <img class="lg-i" src="../assets/logo-iut.png" alt="IUT de Lille, Roubaix">
+  <h2>Qui régule : trois niveaux</h2>
+  <div class="s5g">
+    <div class="nv m"><div class="eti">Monde</div><div class="ls">
+      <div class="au"><img src="../assets/logos/bri.svg" alt=""><p><b>Comité de Bâle</b><span>Fixe les normes des banques, créé fin 1974 par les banques centrales du G10</span></p></div>
+      <div class="au"><img src="../assets/logos/fsb.svg" alt=""><p><b>FSB</b><span>Conseil de stabilité financière, coordonne les autorités, créé en avril 2009</span></p></div>
+    </div></div>
+    <div class="nv e"><div class="eti">Europe</div><div class="ls">
+      <div class="au"><img src="../assets/logos/bce.svg" alt=""><p><b>BCE</b><span>Supervise 109 grandes banques, MSU lancé le 4/11/2014</span></p></div>
+      <div class="au"><img src="../assets/logos/srb.svg" alt=""><p><b>CRU</b><span>Conseil de résolution unique, gère les faillites depuis 2016</span></p></div>
+      <div class="au"><img src="../assets/logos/eba.svg" alt=""><p><b>ABE</b><span>Autorité bancaire européenne, règles communes</span></p></div>
+    </div></div>
+    <div class="nv f"><div class="eti">France</div><div class="ls">
+      <div class="au"><img src="../assets/logos/acpr.svg" alt=""><p><b>ACPR</b><span>Contrôle banques et assurances, rattachée à la Banque de France</span></p></div>
+      <div class="au"><img src="../assets/logos/amf.svg" alt=""><p><b>AMF</b><span>Protège l'épargne, surveille les marchés financiers</span></p></div>
+      <div class="au"><span class="tx">HCSF</span><p><b>HCSF</b><span>Surveille le système entier, créé par la loi de 2013</span></p></div>
+    </div></div>
+  </div>
+  <p class="pied">Sources : BRI, histoire du Comité de Bâle, (consulté le 20/11/2026) ; BCE, supervision bancaire, (consulté le 20/11/2026) ; FSB, (consulté le 20/11/2026) ; ACPR, AMF, (consultés le 20/11/2026)</p>
+  <div class="num">5 / 18</div>
+  <div class="notes">Qui régule ? Pour faire simple, trois niveaux : le monde, l'Europe et la France.
+Au niveau du monde, le Comité de Bâle, créé fin 1974 par les banques centrales du G10, les grands pays industrialisés. Il écrit les normes, par exemple le capital minimum qu'une banque doit avoir, mais il n'a aucun pouvoir de loi : il ne peut sanctionner aucune banque, ce sont les pays qui reprennent ses normes dans leur droit. À côté, le FSB, le Conseil de stabilité financière, créé en avril 2009 au sommet du G20 : il ne fait pas les règles, il coordonne, pour qu'une banque ne puisse pas aller s'installer là où les règles sont les plus souples.
+En Europe, vous connaissez tous la BCE, celle des taux directeurs. Depuis novembre 2014, elle surveille aussi directement les 109 plus grandes banques de la zone euro. Le CRU, le Conseil de résolution unique, organise la fermeture d'une banque en faillite, on y revient. Et l'ABE, l'Autorité bancaire européenne, écrit des règles communes, pour que les banques soient jugées de la même façon à Lille ou à Madrid.
+En France, l'ACPR, l'Autorité de contrôle prudentiel et de résolution, rattachée à la Banque de France, contrôle les banques et les assurances et peut les sanctionner. L'AMF, l'Autorité des marchés financiers, protège l'épargne et surveille les marchés, comme la prof l'a évoqué pour la formation des prix. Et le HCSF, le Haut Conseil de stabilité financière, créé en 2013, surveille le système entier.
+Pour retenir : le monde fixe les règles, l'Europe et la France les appliquent et les contrôlent.</div>
+</section>
+
+<section id="s6">
+  <img class="lg-i" src="../assets/logo-iut.png" alt="IUT de Lille, Roubaix">
+  <h2>Micro et macroprudentiel</h2>
+  <div class="s6g">
+    <div class="s6p mi">
+      <svg class="ic"><use href="#i-banque"/></svg>
+      <div class="tt">Micro<small>une banque</small></div>
+      <div class="lg"><span class="lbl">La question</span><b>Cette banque est-elle solide&nbsp;?</b></div>
+      <div class="lg"><span class="lbl">Les outils</span><b>Fonds propres, liquidité, contrôles</b></div>
+      <div class="lg"><span class="lbl">Qui</span><b>BCE, ACPR</b></div>
+    </div>
+    <div class="s6e"><span></span></div>
+    <div class="s6p ma">
+      <svg class="ic"><use href="#i-reseau"/></svg>
+      <div class="tt">Macro<small>tout le système</small></div>
+      <div class="lg"><span class="lbl">La question</span><b>Le système peut-il tenir&nbsp;?</b></div>
+      <div class="lg"><span class="lbl">Les outils</span><b>Coussin contracyclique : 1&nbsp;%<br>Crédit immobilier : 35&nbsp;% et 25 ans</b></div>
+      <div class="lg"><span class="lbl">Qui</span><b>HCSF</b></div>
+    </div>
+  </div>
+  <p class="pied">Sources : HCSF, coussin de fonds propres contracyclique, décision du 15/09/2026 ; HCSF, crédits immobiliers, décision D-HCSF-2021-7, (consultés le 20/11/2026)</p>
+  <div class="num">6 / 18</div>
+  <div class="notes">Voyons comment ces autorités regardent la solidité des banques, de deux façons. Un mot sur le titre : « prudentiel » veut dire « qui vise la sécurité ». Micro, c'est une banque prise seule ; macro, c'est le système dans son ensemble.
+La solidité, c'est la capacité d'une banque à encaisser des pertes sans faire faillite, grâce à son capital. À ne pas confondre avec la liquidité, qu'on verra plus loin : avoir assez d'argent disponible pour payer les retraits tout de suite.
+Le micro : cette banque est-elle solide ? On regarde ses fonds propres et sa liquidité, avec des contrôles de la BCE et de l'ACPR, un peu comme un contrôle technique, banque par banque.
+Le macro : le système peut-il tenir ? Une banque peut être solide seule et le système fragile si tout le monde prête trop. Le HCSF a deux outils. Le coussin contracyclique, à 1 % depuis janvier 2024 : quand le crédit s'emballe, on demande aux banques de mettre plus de capital de côté, comme un ménage qui épargne quand tout va bien pour avoir un matelas ensuite. Et une limite sur le crédit immobilier : 35 % de taux d'effort maximum. Concrètement, si vous gagnez 3 000 euros par mois, vos mensualités ne doivent pas dépasser 1 050 euros, sur 25 ans au plus, pour éviter que tout le monde s'endette trop.
+Les deux approches se complètent. Reste à voir d'où viennent ces règles.</div>
+</section>
+
+<section id="s7" class="td">
+  <img class="lg-i" src="../assets/logo-iut.png" alt="IUT de Lille, Roubaix">
+  <h2>Les accords de Bâle</h2>
+  <div class="s7g">
+    <svg viewBox="0 0 1100 440" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Frise : 1974 Comité de Bâle, 1988 Bâle I, 2004 Bâle II, 2010 Bâle III, 2017 finalisation">
+      <g class="frz"><path d="M40 220H1060" stroke="#0a0a0a" stroke-width="5" stroke-linecap="round"/><path d="M806 220H1060" stroke="#1d9bf0" stroke-width="5" stroke-linecap="round"/></g>
+      <g>
+        <g class="jl"><circle cx="70" cy="220" r="16" fill="#0a0a0a"/></g>
+        <g class="jl"><circle cx="356" cy="220" r="16" fill="#0a0a0a"/></g>
+        <g class="jl"><circle cx="683" cy="220" r="16" fill="#0a0a0a"/></g>
+        <g class="jl"><circle cx="806" cy="220" r="24" fill="#1d9bf0"/></g>
+        <g class="jl"><circle cx="950" cy="220" r="16" fill="#1d9bf0"/></g>
+      </g>
+      <g>
+        <g class="jt"><path d="M70 270V300" stroke="#0a0a0a" stroke-width="2"/><text class="t30" x="40" y="338">1974</text><text class="t14b" x="40" y="366">Comité de Bâle</text><text class="t14" x="40" y="388">créé par les banques centrales du G10</text></g>
+        <g class="jt"><path d="M356 170V140" stroke="#0a0a0a" stroke-width="2"/><text class="t30" x="356" y="62" text-anchor="middle">1988</text><text class="t14b" x="356" y="90" text-anchor="middle">Bâle I</text><text class="t14" x="356" y="112" text-anchor="middle">ratio total d'au moins 8&nbsp;%</text></g>
+        <g class="jt"><path d="M683 270V300" stroke="#0a0a0a" stroke-width="2"/><text class="t30" x="683" y="338" text-anchor="middle">2004</text><text class="t14b" x="683" y="366" text-anchor="middle">Bâle II</text><text class="t14" x="683" y="388" text-anchor="middle">cadre révisé, juin 2004</text></g>
+        <g class="jt"><path d="M806 166V140" stroke="#1d9bf0" stroke-width="2"/><text class="t30" x="806" y="62" text-anchor="middle" fill="#1d9bf0" style="fill:#1d9bf0">2010</text><text class="t14b" x="806" y="90" text-anchor="middle">Bâle III</text><text class="t14" x="806" y="112" text-anchor="middle">publié en décembre 2010</text></g>
+        <g class="jt"><path d="M950 270V300" stroke="#1d9bf0" stroke-width="2"/><text class="t30" x="950" y="338" text-anchor="middle">2017</text><text class="t14b" x="950" y="366" text-anchor="middle">Bâle III finalisé</text><text class="t14" x="950" y="388" text-anchor="middle">accord du 7 décembre 2017</text></g>
+      </g>
+    </svg>
+  </div>
+  <p class="pied">Sources : BRI, histoire du Comité de Bâle, (consulté le 20/11/2026) ; BRI, Basel III: finalising post-crisis reforms (d424), (consulté le 20/11/2026)</p>
+  <div class="num">7 / 18</div>
+  <div class="notes">Ces règles viennent du Comité de Bâle, avec trois accords successifs.
+Bâle I, en 1988, impose aux banques des fonds propres d'au moins 8 % de leurs actifs pondérés. Pondérés, ça veut dire qu'on ne compte pas tous les crédits pareil : un prêt à un État sûr pèse peu, un prêt à une PME pèse plus. Donc 8 %, c'est environ 8 euros de capital pour 100 euros de crédits pondérés.
+Bâle II, en 2004, mesure mieux les risques de chaque banque, mais en 2008, on voit qu'il ne suffit pas.
+Alors arrive Bâle III, publié en décembre 2010, comme réponse directe à la crise : le total reste à 8 %, mais le capital doit être de meilleure qualité et on ajoute la liquidité. Il est finalisé en décembre 2017, avec un nouveau calcul des risques.
+Attention, le Comité n'est pas un législateur : chaque pays doit transposer ses accords, et ça prend du temps. Retenez que chaque accord répond à une crise ou à une faiblesse du précédent.</div>
+</section>
+
+<section id="s8">
+  <img class="lg-i" src="../assets/logo-iut.png" alt="IUT de Lille, Roubaix">
+  <h2>Les fonds propres : le coussin contre les pertes</h2>
+  <div class="s8g">
+    <div class="s8c ok">
+      <div class="tete"><b>Perte de 5</b><span class="lbl">Exemple théorique</span></div>
+      <svg viewBox="0 0 500 380" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Perte de 5">
+        <text class="t14" x="20" y="72">Passif d'une banque de 100</text><text class="t14b" x="240" y="72" style="fill:#1d9bf0">Fonds propres : 7</text>
+        <rect x="20" y="90" width="205" height="180" rx="8" fill="rgba(10,10,10,.12)"/>
+        <path d="M232 90l6 45-12 45 12 45-6 45" transform="translate(0 0)" fill="none" stroke="#0a0a0a" stroke-width="3" stroke-linecap="round"/>
+        <rect x="240" y="90" width="140" height="180" rx="8" fill="#1d9bf0"/>
+        <text class="t14b" x="122" y="190.0" text-anchor="middle">Dettes : 93</text><text class="t14b" x="260" y="190.0" text-anchor="middle" style="fill:#fff">2</text>
+        <g class="perte"><rect x="280" y="90" width="100" height="180" rx="8" fill="#ff0000"/><text class="t30" x="330" y="190.0" text-anchor="middle" style="fill:#fff">-5</text></g>
+        <path d="M280 292H380" stroke="#ff0000" stroke-width="2.5"/><path d="M280 286v12M380 286v12" stroke="#ff0000" stroke-width="2.5"/><text class="t14" x="330" y="324" text-anchor="middle">perte absorbée par les fonds propres</text>
+      </svg>
+      <div class="verdict">La banque tient</div>
+    </div>
+    <div class="s8c ko">
+      <div class="tete"><b>Perte de 10</b><span class="lbl">Exemple théorique</span></div>
+      <svg viewBox="0 0 500 380" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Perte de 10">
+        <text class="t14" x="20" y="72">Passif d'une banque de 100</text><text class="t14b" x="240" y="72" style="fill:#1d9bf0">Fonds propres : 7</text>
+        <rect x="20" y="90" width="205" height="180" rx="8" fill="rgba(10,10,10,.12)"/>
+        
+        <rect x="240" y="90" width="140" height="180" rx="8" fill="#1d9bf0"/>
+        <text class="t14b" x="100" y="190.0" text-anchor="middle">Dettes : 93</text>
+        <g class="perte"><rect x="180" y="90" width="200" height="180" rx="8" fill="#ff0000"/><text class="t30" x="280" y="190.0" text-anchor="middle" style="fill:#fff">-10</text></g>
+        <path d="M180 292H240" stroke="#ff0000" stroke-width="2.5"/><path d="M180 286v12M240 286v12" stroke="#ff0000" stroke-width="2.5"/><text class="t14b" x="210" y="324" text-anchor="middle" style="fill:#ff0000">-3 pour les créanciers</text>
+      </svg>
+      <div class="verdict">La banque fait faillite</div>
+    </div>
+  </div>
+  <div class="num">8 / 18</div>
+  <div class="notes">Pour comprendre ces ratios, il faut savoir ce que sont les fonds propres. C'est l'argent des actionnaires et les bénéfices mis en réserve : de l'argent qui n'est pas emprunté. Vous pouvez le voir comme l'apport personnel dans un crédit immobilier : c'est ce que vous mettez vous-même, et si la maison perd de la valeur, c'est votre apport qui est touché en premier, pas la banque. Pour une banque, c'est pareil : les fonds propres absorbent les pertes en premier.
+Prenons un exemple théorique. Une banque dont le passif, c'est-à-dire tout ce qu'elle doit, est de 100 : 93 de dettes, dont les dépôts de ses clients, et 7 de fonds propres.
+Premier cas, elle perd 5. Ses fonds propres tombent de 7 à 2, les déposants ne sont pas touchés, la banque tient.
+Deuxième cas, elle perd 10. Les 7 de fonds propres sont avalés, et il reste 3 de pertes qui retombent sur les créanciers, donc sur ceux à qui elle doit de l'argent : c'est la faillite.
+Plus il y a de fonds propres, plus la banque peut perdre sans toucher ses clients. Ces chiffres sont choisis pour l'illustration, ce n'est pas une vraie banque. La question devient donc : combien le régulateur impose-t-il ?</div>
+</section>
+
+<section id="s9" class="tc">
+  <img class="lg-i" src="../assets/logo-iut.png" alt="IUT de Lille, Roubaix">
+  <h2>Ce que Bâle III exige</h2>
+  <div class="s9g">
+    <div class="gr">
+      <svg viewBox="0 0 660 470" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Fonds propres exigés : 2 % avant, 7 % minimum sous Bâle III, plus des coussins">
+        <path d="M20 420H580" stroke="#0a0a0a" stroke-width="3" stroke-linecap="round"/>
+        <g>
+          <rect class="brr" x="40" y="364" width="120" height="56" fill="#1d9bf0"/>
+          <g class="brr"><rect x="240" y="294" width="130" height="126" fill="#1d9bf0"/></g>
+          <g class="brr"><rect x="240" y="224" width="130" height="70" fill="#0a0a0a"/></g>
+          <g class="brr"><rect x="240" y="154" width="130" height="70" fill="#fff" stroke="#1d9bf0" stroke-width="3" stroke-dasharray="9 7"/></g>
+          <g class="brr"><rect x="240" y="56" width="130" height="98" fill="#fff" stroke="#0a0a0a" stroke-width="3" stroke-dasharray="9 7"/></g>
+        </g>
+        <text class="t30" x="100" y="352" text-anchor="middle">2&nbsp;%</text>
+        <text class="t30" x="305" y="368" text-anchor="middle" style="fill:#fff">4,5&nbsp;%</text>
+        <text class="t30" x="305" y="268" text-anchor="middle" style="fill:#fff">2,5&nbsp;%</text>
+        <text class="t14b" x="305" y="194" text-anchor="middle">0 à 2,5&nbsp;%</text>
+        <text class="t14b" x="305" y="110" text-anchor="middle">1 à 3,5&nbsp;%</text>
+        <text class="t14" x="385" y="364">CET1 minimum</text>
+        <text class="t14" x="385" y="262">coussin de conservation</text>
+        <text class="t14" x="385" y="190">coussin contracyclique</text>
+        <text class="t14" x="385" y="106">surcharge des grandes banques</text>
+        <text class="t14b" x="100" y="448" text-anchor="middle">Avant Bâle III</text>
+        <text class="t14b" x="305" y="448" text-anchor="middle">Bâle III</text>
+        <path d="M216 224V420" stroke="#ff0000" stroke-width="2.5"/><path d="M210 224h12M210 420h12" stroke="#ff0000" stroke-width="2.5"/>
+        <text class="t30" x="200" y="330" text-anchor="end" style="fill:#ff0000">7&nbsp;%</text>
+      </svg>
+    </div>
+    <div class="s9l">
+      <div><span class="v">CET1</span><p><b>Capital + réserves</b><span>Rapportés aux actifs pondérés des risques</span></p></div>
+      <div><span class="v n">8&nbsp;%</span><p><b>Total des fonds propres</b><span>10,5&nbsp;% avec le coussin de conservation</span></p></div>
+      <div><span class="v n">3&nbsp;%</span><p><b>Ratio de levier</b><span>Tier 1 rapporté à l'exposition totale, sans pondération</span></p></div>
+    </div>
+  </div>
+  <p class="pied">Sources : BRI, Basel Framework RBC20, RBC30, RBC40, LEV20, (consulté le 20/11/2026) ; BRI, Basel III: a global regulatory framework (juin 2011), (consulté le 20/11/2026)</p>
+  <div class="num">9 / 18</div>
+  <div class="notes">Bâle III impose un minimum, mesuré par le CET1, Common Equity Tier 1 : le capital et les réserves de la meilleure qualité, ceux qui absorbent vraiment les pertes, rapportés aux actifs pondérés des risques.
+Avant Bâle III, il fallait 2 %. Maintenant, c'est 4,5 %, plus un coussin de conservation de 2,5 % : 7 % au total. Concrètement, pour 100 euros d'actifs pondérés, au moins 7 euros de capital de très bonne qualité. Si la banque entame le coussin, elle n'est pas fermée, mais elle est limitée, par exemple sur les dividendes et les primes.
+Attention à ne pas confondre : 8 % pour le total des fonds propres, 10,5 % avec le coussin, 4,5 % pour le CET1 seul, 7 % avec le coussin. Bâle III n'assouplit donc pas Bâle I, il demande plus et de meilleure qualité.
+On ajoute des couches variables : le coussin contracyclique, de 0 à 2,5 % selon le cycle du crédit, 1 % en France, et une surcharge de 1 à 3,5 % pour les très grandes banques mondiales. Enfin, le ratio de levier à 3 % : un filet de sécurité qui compare le capital à tous les engagements, sans pondération. Et ces 7 % ne sont pas l'exigence réelle d'une banque : le superviseur peut demander plus.</div>
+</section>
+
+<section id="s10">
+  <img class="lg-i" src="../assets/logo-iut.png" alt="IUT de Lille, Roubaix">
+  <h2>La liquidité : tenir quand tout le monde retire</h2>
+  <div class="s10g">
+    <div class="s10r">
+      <div class="bk"><span class="lbl">LCR</span><span class="hero">30 jours</span><span class="sd2">Une crise courte et brutale</span></div>
+      <div class="gj">
+        <div class="fo">Actifs liquides ÷ sorties à 30 jours</div>
+        <svg viewBox="0 0 760 120" preserveAspectRatio="xMidYMid meet">
+          <rect x="0" y="46" width="720" height="48" rx="12" fill="rgba(10,10,10,.1)"/>
+          <rect class="jau" x="0" y="46" width="634" height="48" rx="12" fill="#008000"/>
+          <text class="t30" x="648" y="82" style="fill:#008000">158,5&nbsp;%</text>
+          <path d="M400 30V110" stroke="#ff0000" stroke-width="4" stroke-dasharray="8 6"/>
+          <text class="t14b" x="408" y="22" style="fill:#ff0000">minimum 100&nbsp;%</text>
+        </svg>
+      </div>
+    </div>
+    <div class="s10r">
+      <div class="bk"><span class="lbl">NSFR</span><span class="hero">1 an</span><span class="sd2">Un financement durable</span></div>
+      <div class="gj">
+        <div class="fo">Financement stable ÷ besoin à 1 an</div>
+        <svg viewBox="0 0 760 120" preserveAspectRatio="xMidYMid meet">
+          <rect x="0" y="46" width="720" height="48" rx="12" fill="rgba(10,10,10,.1)"/>
+          <rect class="jau" x="0" y="46" width="503" height="48" rx="12" fill="#008000"/>
+          <text class="t30" x="517" y="82" style="fill:#008000">125,7&nbsp;%</text>
+          <path d="M400 30V110" stroke="#ff0000" stroke-width="4" stroke-dasharray="8 6"/>
+          <text class="t14b" x="408" y="22" style="fill:#ff0000">minimum 100&nbsp;%</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <p class="pied">Sources : BRI, Basel Framework LCR20 et NSF20, (consulté le 20/11/2026) ; ABE, Risk Dashboard T2 2026, moyenne des banques de l'UE, (consulté le 20/11/2026)</p>
+  <div class="num">10 / 18</div>
+  <div class="notes">Une banque peut être solide et tomber quand même, si tout le monde retire en même temps : c'est la liquidité. La solvabilité, c'est avoir plus d'actifs que de dettes ; la liquidité, c'est avoir de quoi payer les retraits immédiats. Souvenez-vous de l'exemple de la prof : 100 000 euros en actions Amazon, on les revend tout de suite ; un appartement, ça prend des semaines. Une banque, c'est pareil : elle peut valoir beaucoup mais ne pas pouvoir payer ses clients demain matin.
+Bâle III ajoute donc deux ratios. Le LCR vérifie que la banque tient 30 jours de crise brutale : elle doit avoir assez d'actifs liquides, comme des titres d'État, pour couvrir les sorties d'argent. Le NSFR vérifie que ses crédits longs sont financés par des ressources stables, sur un an : on ne finance pas un crédit de 20 ans avec de l'argent qui peut partir demain.
+Le minimum est de 100 % pour les deux. En juin 2026, la moyenne des banques de l'Union européenne est à 158,5 % et 125,7 %. Voyons comment le monde a répondu à 2008.</div>
+</section>
+
+<section id="s11">
+  <img class="lg-i" src="../assets/logo-iut.png" alt="IUT de Lille, Roubaix">
+  <h2>Les réponses à la crise de 2008</h2>
+  <div class="s11g">
+    <div class="s11c b">
+      <div class="lgs"><img src="../assets/logos/fsb.svg" alt="FSB"><img src="../assets/logos/bri.svg" alt="BRI"></div>
+      <span class="lbl">Monde</span><span class="an">2009 à 2010</span>
+      <div class="it"><b>FSB</b><span>créé le 2 avril 2009 au sommet du G20</span></div>
+      <div class="it"><b>Bâle III</b><span>publié en décembre 2010</span></div>
+    </div>
+    <div class="s11c n">
+      <div class="lgs"><img src="../assets/logos/fed.svg" alt="Réserve fédérale"></div>
+      <span class="lbl">États-Unis</span><span class="an">2010</span>
+      <div class="it"><b>Dodd-Frank Act</b><span>signé le 21 juillet 2010</span></div>
+      <div class="it"><b>Règle Volcker</b><span>pas de spéculation pour compte propre</span></div>
+      <div class="it"><b>Tests de résistance</b><span>des grandes banques</span></div>
+    </div>
+    <div class="s11c w">
+      <div class="lgs"><img src="../assets/logos/bce.svg" alt="BCE"><img src="../assets/logos/srb.svg" alt="CRU"></div>
+      <span class="lbl">Union européenne</span><span class="an">2014 à 2016</span>
+      <div class="it"><b>MSU</b><span>supervision unique, 4 novembre 2014</span></div>
+      <div class="it"><b>CRU</b><span>résolution unique, 1er janvier 2016 : actionnaires et créanciers paient d'abord (bail-in)</span></div>
+    </div>
+  </div>
+  <p class="pied">Sources : FSB ; Federal Reserve History, Dodd-Frank Act ; BCE, jalons ; CRU, outils de résolution, (consultés le 20/11/2026)</p>
+  <div class="num">11 / 18</div>
+  <div class="notes">Après 2008, trois réponses.
+Au niveau mondial, le FSB en avril 2009 et Bâle III en décembre 2010.
+Aux États-Unis, la loi Dodd-Frank, signée en juillet 2010. Elle contient la règle Volcker : une banque ne peut plus jouer en bourse pour son propre compte avec l'argent de ses clients. Et il y a les tests de résistance : comme un crash test pour les voitures, on simule une crise grave et on regarde si les grandes banques tiennent.
+En Europe, la supervision unique en novembre 2014, puis le CRU en janvier 2016, avec un principe fort : quand une banque tombe, ce sont d'abord ses actionnaires et ses créanciers qui paient, c'est le bail-in. Avant, c'étaient les contribuables, comme en 2008. À côté, un fonds de résolution de plus de 81 milliards d'euros fin 2025, et des dépôts garantis jusqu'à 100 000 euros par déposant.
+Le même objectif partout : que la faillite d'une banque ne coûte plus aux contribuables. Reste à savoir si les banques sont réellement plus solides.</div>
+</section>
+
+<section id="s12">
+  <img class="lg-i" src="../assets/logo-iut.png" alt="IUT de Lille, Roubaix">
+  <h2>Des banques mieux capitalisées</h2>
+  <div class="s12g">
+    <div class="gr">
+      <svg viewBox="0 0 800 480" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Ratio CET1 moyen des banques de l'UE, de 12,5 % en 2014 à 16,1 % en 2026">
+        <path d="M30 430H780" stroke="#0a0a0a" stroke-width="3" stroke-linecap="round"/>
+        <g><g class="bz"><rect x="190" y="194" width="52" height="236" fill="#1d9bf0"/></g><g class="bz"><rect x="262" y="162" width="52" height="268" fill="#1d9bf0"/></g><g class="bz"><rect x="334" y="152" width="52" height="278" fill="#1d9bf0"/></g><g class="bz"><rect x="406" y="129" width="52" height="301" fill="#1d9bf0"/></g><g class="bz"><rect x="478" y="135" width="52" height="295" fill="#1d9bf0"/></g><g class="bz"><rect x="550" y="124" width="52" height="306" fill="#1d9bf0"/></g><g class="bz"><rect x="622" y="120" width="52" height="310" fill="#1d9bf0"/></g><g class="bz"><rect x="694" y="126" width="52" height="304" fill="#1d9bf0"/></g></g>
+        <g class="t14b vl" text-anchor="middle"><text x="216" y="184">12,5</text><text x="288" y="152">14,2</text><text x="360" y="142">14,7</text><text x="432" y="119">15,9</text><text x="504" y="125">15,6</text><text x="576" y="114">16,2</text><text x="648" y="110">16,4</text><text x="720" y="116">16,1</text></g>
+        <g class="t14" text-anchor="middle"><text x="216" y="456">déc. 2014</text><text x="288" y="456">2016</text><text x="360" y="456">2018</text><text x="432" y="456">2020</text><text x="504" y="456">2022</text><text x="576" y="456">2024</text><text x="648" y="456">2025</text><text x="720" y="456">juin 2026</text></g>
+        <g class="l7"><path d="M30 298H780" stroke="#ff0000" stroke-width="3" stroke-dasharray="9 7"/>
+        <text class="t30" x="36" y="278" style="fill:#ff0000">7&nbsp;%</text>
+        <text class="t14b" x="36" y="326" style="fill:#ff0000">socle de Bâle III,</text><text class="t14b" x="36" y="346" style="fill:#ff0000">exigences propres</text><text class="t14b" x="36" y="366" style="fill:#ff0000">à chaque banque</text><text class="t14b" x="36" y="386" style="fill:#ff0000">en plus</text></g>
+      </svg>
+    </div>
+    <div class="s12d">
+      <div class="bk b"><span class="lbl">CET1 moyen, banques de l'UE</span><span class="hero">+3,6 pts</span><span>de 12,5&nbsp;% à 16,1&nbsp;%</span></div>
+      <div class="bk v"><span class="lbl">Prêts non performants</span><span class="hero">1,8&nbsp;%</span><span>contre 6,5&nbsp;% fin 2014</span></div>
+    </div>
+  </div>
+  <p class="pied">Source : Autorité bancaire européenne, Risk Dashboard T2 2026, banques UE/EEE, avec dispositions transitoires, (consulté le 20/11/2026)</p>
+  <div class="num">12 / 18</div>
+  <div class="notes">Les banques sont-elles réellement plus solides ? Le CET1 moyen des banques de l'Union européenne passe de 12,5 % fin 2014 à 16,1 % en juin 2026 : 3,6 points de plus, un calcul de notre part. La ligne rouge, ce sont les 7 % : un socle, car les superviseurs ajoutent des exigences propres à chaque banque, donc la marge réelle est plus faible.
+Deuxième indicateur : les prêts non performants, les crédits que l'emprunteur ne rembourse plus ou plus à temps. Ils passent de 6,5 % à 1,8 %, donc des bilans plus sains.
+Mais soyons prudents : ça montre plus de capital, pas que Bâle III en est la seule cause, et les échantillons de 2014 et 2026 ne sont pas strictement comparables. Surtout, plus de capital ne dit pas comment les banques résistent à un vrai choc. C'est ce que mars 2023 nous a montré.</div>
+</section>
+
+<section id="s13" class="tc">
+  <img class="lg-i" src="../assets/logo-iut.png" alt="IUT de Lille, Roubaix">
+  <h2>Mars 2023 : le test grandeur nature</h2>
+  <div class="s13g">
+    <svg viewBox="0 0 1100 330" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Frise des faillites bancaires de 2023">
+      <g class="frz"><path d="M40 150H1060" stroke="#ff0000" stroke-width="5" stroke-linecap="round"/></g>
+      <g>
+        <g class="fl"><circle cx="160" cy="150" r="20" fill="#ff0000"/></g>
+        <g class="fl"><circle cx="410" cy="150" r="20" fill="#ff0000"/></g>
+        <g class="fl"><circle cx="660" cy="150" r="20" fill="#ff0000"/></g>
+        <g class="fl"><circle cx="920" cy="150" r="20" fill="#ff0000"/></g>
+      </g>
+      <g>
+        <g class="ft"><text class="t30" x="160" y="68" text-anchor="middle">10/03/2023</text><text class="t14b" x="160" y="96" text-anchor="middle">Silicon Valley Bank</text><text class="t30" x="160" y="222" text-anchor="middle" style="fill:#ff0000">209,0 Md$</text><text class="t14" x="160" y="248" text-anchor="middle">d'actifs, fermée par</text><text class="t14" x="160" y="268" text-anchor="middle">les autorités californiennes</text></g>
+        <g class="ft"><text class="t30" x="410" y="68" text-anchor="middle">12/03/2023</text><text class="t14b" x="410" y="96" text-anchor="middle">Signature Bank</text><text class="t30" x="410" y="222" text-anchor="middle" style="fill:#ff0000">110,4 Md$</text><text class="t14" x="410" y="248" text-anchor="middle">d'actifs, fermée par</text><text class="t14" x="410" y="268" text-anchor="middle">les autorités new-yorkaises</text></g>
+        <g class="ft"><text class="t30" x="660" y="68" text-anchor="middle">19/03/2023</text><text class="t14b" x="660" y="96" text-anchor="middle">Credit Suisse</text><text class="t30" x="660" y="222" text-anchor="middle" style="fill:#ff0000">3 Md CHF</text><text class="t14" x="660" y="248" text-anchor="middle">prix du rachat</text><text class="t14" x="660" y="268" text-anchor="middle">par UBS</text></g>
+        <g class="ft"><text class="t30" x="920" y="68" text-anchor="middle">01/05/2023</text><text class="t14b" x="920" y="96" text-anchor="middle">First Republic Bank</text><text class="t30" x="920" y="222" text-anchor="middle" style="fill:#ff0000">229,1 Md$</text><text class="t14" x="920" y="248" text-anchor="middle">d'actifs, reprise</text><text class="t14" x="920" y="268" text-anchor="middle">par JPMorgan Chase</text></g>
+      </g>
+    </svg>
+    <div class="s13b"><div><span class="lbl">Comité de Bâle, octobre 2023</span><span class="ch">La pire tension bancaire depuis 2008</span></div><div class="b"><span class="lbl">Crédit aux entreprises, zone euro, durcissement net</span><span class="ch">27&nbsp;% au T1 2023, 14&nbsp;% au T2</span></div></div>
+  </div>
+  <p class="pied">Sources : FDIC, communiqués du 10/03, 12/03 et 01/05/2023 ; FINMA ; UBS, fusion ; Comité de Bâle, 10/2023 ; BCE, enquête sur le crédit, 07/2023, (consultés le 20/11/2026)</p>
+  <div class="num">13 / 18</div>
+  <div class="notes">Mars 2023, le test grandeur nature. Le 10 mars, Silicon Valley Bank, très liée aux start-ups, est fermée : 209 milliards de dollars d'actifs, la deuxième plus grande faillite bancaire américaine à l'époque. Le 12 mars, Signature Bank. Le 19 mars, en Suisse, Credit Suisse est rachetée dans l'urgence par UBS pour 3 milliards de francs suisses, et 16 milliards d'AT1 sont effacés : des obligations spéciales conçues pour absorber les pertes, dont les détenteurs peuvent tout perdre. Un tribunal suisse a jugé en octobre 2025 cet effacement sans base légale. Le 1er mai, First Republic est reprise par JPMorgan.
+Le Comité de Bâle parle de la pire tension bancaire depuis 2008, et le crédit aux entreprises de la zone euro s'est durci : 27 % au premier trimestre, 14 % au deuxième.
+Bâle III existait. Alors pourquoi ces banques sont-elles tombées ? Chaque cas a une cause différente.</div>
+</section>
+
+<section id="s14">
+  <img class="lg-i" src="../assets/logo-iut.png" alt="IUT de Lille, Roubaix">
+  <h2>Ce que les règles ne couvraient pas</h2>
+  <div class="s14w">
+    <div class="s14c">
+      <div class="s14k sv">
+        <div class="hd"><img src="../assets/logos/svb.svg" alt="SVB"><span class="lbl">États-Unis, 10/03/2023</span><div class="tt">SVB : hors du cadre complet</div></div>
+        <div class="ls">
+          <div><span class="v">250 Md$</span><span>seuil des règles renforcées, relevé de 50 en 2018 (SVB : 209 Md$ d'actifs)</span></div>
+          <div><span class="v">15,2 Md$</span><span>de pertes latentes sur titres à long terme, avec la hausse des taux</span></div>
+          <div><span class="v">94&nbsp;%</span><span>de dépôts non assurés : 85&nbsp;% retirés ou demandés en deux jours</span></div>
+        </div>
+      </div>
+      <div class="s14k cs">
+        <div class="hd"><img src="../assets/logos/cs.svg" alt="Credit Suisse"><span class="lbl">Suisse, 19/03/2023</span><div class="tt">Credit Suisse : règles respectées</div></div>
+        <div class="ls">
+          <div><span class="v">14,1&nbsp;%</span><span>de CET1 fin 2022, au-dessus des exigences</span></div>
+          <div><span class="v">138 Md CHF</span><span>de dépôts sortis au quatrième trimestre 2022, avant même le rachat</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="s14q">« Credit Suisse respectait les exigences de fonds propres. Elles n'ont pas suffi à éviter l'énorme crise de confiance. »</p>
+  </div>
+  <p class="pied">Sources : Réserve fédérale, rapport Barr ; SVB, 10-K 2022 ; FINMA, rapport CS (citation traduite) ; Comité de Bâle, (consultés le 20/11/2026)</p>
+  <div class="num">14 / 18</div>
+  <div class="notes">Chaque cas a sa cause. SVB n'était pas dans le cadre complet : en 2018, aux États-Unis, le seuil des règles renforcées est passé de 50 à 250 milliards de dollars. Avec 209 milliards, SVB était dessous : ni LCR, ni tests de résistance. Deuxième problème, le risque de taux : elle avait des obligations à long terme qui perdent de la valeur quand les taux montent, environ 15 milliards de dollars de pertes latentes, c'est-à-dire des pertes sur le papier tant qu'on ne vend pas. Troisième problème, 94 % de ses dépôts n'étaient pas assurés : 85 % ont été retirés ou demandés en deux jours, bien plus vite que les 30 jours du LCR.
+Credit Suisse, c'est l'inverse : elle respectait les règles, 14,1 % de CET1 fin 2022. Pourtant, 138 milliards de francs suisses de dépôts sont sortis au quatrième trimestre 2022. Le régulateur suisse le dit : exigences respectées, mais pas suffisantes face à la perte de confiance.
+Deux problèmes différents : pour SVB, le périmètre et la supervision ; pour Credit Suisse, la confiance. Bâle III mesure la solidité, pas la confiance.</div>
+</section>
+
+<section id="s15">
+  <img class="lg-i" src="../assets/logo-iut.png" alt="IUT de Lille, Roubaix">
+  <h2>Une mise en œuvre à plusieurs vitesses</h2>
+  <div class="s15g">
+    <svg viewBox="0 0 1100 470" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Calendrier de mise en oeuvre de Bâle III par juridiction">
+      <g stroke="rgba(10,10,10,.14)" stroke-width="2"><path d="M250 56V386M412 56V386M574 56V386M736 56V386M898 56V386M1060 56V386"/></g>
+      <g class="t14b" text-anchor="middle" fill="rgba(10,10,10,.55)"><text x="250" y="38">2023</text><text x="412" y="38">2024</text><text x="574" y="38">2025</text><text x="736" y="38">2026</text><text x="898" y="38">2027</text><text x="1060" y="38">2028</text></g>
+      <g>
+        <g class="cal">
+          <text class="t14b" x="0" y="106">Comité de Bâle</text><text class="t14" x="0" y="128">date prévue, 1/1/2023</text>
+          <path d="M250 110H938" stroke="#ff0000" stroke-width="5" stroke-linecap="round"/>
+          <path d="M250 96l14 14-14 14-14-14z" fill="#fff" stroke="#ff0000" stroke-width="4"/>
+          <circle cx="938" cy="110" r="13" fill="#ff0000"/>
+          <text class="t14b" x="590" y="90" text-anchor="middle" style="fill:#ff0000">presque tous : avril 2027 au plus tard</text>
+        </g>
+        <g class="cal">
+          <text class="t14b" x="0" y="206">Union européenne</text><text class="t14" x="0" y="228">paquet CRR3</text>
+          <path d="M574 210H898" stroke="#0a0a0a" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="574" cy="210" r="13" fill="#008000"/><text class="t14b" x="574" y="182" text-anchor="middle" style="fill:#008000">en vigueur 1/1/2025</text>
+          <circle cx="898" cy="210" r="13" fill="#fff" stroke="#1d9bf0" stroke-width="4"/><text class="t14b" x="898" y="182" text-anchor="middle">risque de marché 1/1/2027</text>
+        </g>
+        <g class="cal">
+          <text class="t14b" x="0" y="306">États-Unis</text><text class="t14" x="0" y="328">règle finale en attente</text>
+          <circle cx="770" cy="310" r="13" fill="#0a0a0a"/><text class="t14b" x="770" y="282" text-anchor="middle">3 propositions 19/03/2026</text>
+          <circle cx="879" cy="310" r="13" fill="#ff0000"/><text class="t14b" x="879" y="342" text-anchor="middle" style="fill:#ff0000">à l'examen de la Maison-Blanche, non publiée</text>
+        </g>
+        <g class="cal">
+          <text class="t14b" x="0" y="396">Suisse</text><text class="t14" x="0" y="418">après Credit Suisse</text>
+          <circle cx="854" cy="400" r="13" fill="#ff0000"/><text class="t14b" x="830" y="406" text-anchor="end" style="fill:#ff0000">UBS : +15 à 24 Md$ de fonds propres en débat, selon la version</text><text class="t14b" x="854" y="372" text-anchor="middle" style="fill:#ff0000">vote du Conseil des États 23/09/2026</text>
+        </g>
+      </g>
+      <g class="t14" fill="rgba(10,10,10,.62)"><circle cx="270" cy="450" r="9" fill="#008000"/><text x="288" y="455">en vigueur</text><circle cx="420" cy="450" r="9" fill="#fff" stroke="#1d9bf0" stroke-width="3.5"/><text x="438" y="455">prévu</text><circle cx="530" cy="450" r="9" fill="#0a0a0a"/><text x="548" y="455">proposition publiée</text><circle cx="760" cy="450" r="9" fill="#ff0000"/><text x="778" y="455">en attente ou en débat</text></g>
+    </svg>
+  </div>
+  <p class="pied">Sources : BRI, 05/10/2026 ; Commission européenne ; Réserve fédérale ; Mayer Brown ; UBS ; swissinfo, (consultés le 20/11/2026)</p>
+  <div class="num">15 / 18</div>
+  <div class="notes">Dernier point : où en sont les règles ? Bâle III finalisé devait s'appliquer partout le 1er janvier 2023. Fin 2026, ce n'est toujours pas terminé.
+Par juridiction, c'est-à-dire par pays ou zone qui doit transposer : trois quarts des 27 juridictions suivies ont publié leurs règles, presque toutes d'ici avril 2027. L'Union européenne applique le paquet CRR3 depuis le 1er janvier 2025, avec le risque de marché reporté à janvier 2027. Aux États-Unis, la règle finale est à l'examen de la Maison-Blanche. En Suisse, le capital exigé d'UBS, de 15 à 24 milliards de dollars selon les versions, est en débat.
+Ce retard touche le calcul des risques, alors que la leçon de SVB, c'était le risque de taux. Retenez que la régulation ne protège que si tout le monde l'applique, et le calendrier glisse.</div>
+</section>
+
+<section id="s16">
+  <img class="lg-i" src="../assets/logo-iut.png" alt="IUT de Lille, Roubaix">
+  <h2>Notre réponse</h2>
+  <div class="s16g">
+    <div class="s16r">
+      <div class="it v"><span class="bd"><svg class="ic"><use href="#i-bouclier"/></svg></span><b>Oui, mieux capitalisées</b><span>CET1 moyen de 12,5&nbsp;% à 16,1&nbsp;% dans l'UE</span></div>
+      <div class="it r"><span class="bd"><svg class="ic"><use href="#i-alerte"/></svg></span><b>Mais des trous</b><span>Périmètre, supervision, retraits trop rapides, confiance</span></div>
+      <div class="it b"><span class="bd"><svg class="ic"><use href="#i-balance"/></svg></span><b>Donc compléter</b><span>Appliquer partout, risque de taux, finance hors banques</span></div>
+    </div>
+    <p class="sm">Une condition nécessaire, pas suffisante</p>
+  </div>
+  <p class="pied">Sources : Comité de Bâle, Report on the 2023 banking turmoil, (consulté le 20/11/2026) ; FMI, Global Financial Stability Report, octobre 2026, (consulté le 20/11/2026)</p>
+  <div class="num">16 / 18</div>
+  <div class="notes">Revenons à notre problématique : les règles imposées aux banques protègent-elles réellement l'économie ? Notre réponse, c'est que les banques sont plus solides, mais pas invulnérables.
+Oui, les banques sont mieux capitalisées : le CET1 moyen passe de 12,5 % à 16,1 %, et le Comité de Bâle juge que Bâle III a limité la crise de 2023. Mais personne ne peut prouver ce qui serait arrivé sans lui.
+Mais il y a des trous. SVB était hors du cadre complet, Credit Suisse respectait les normes mais a perdu la confiance, et les retraits ont été plus rapides que les 30 jours du LCR. Et en 2023, la crise a aussi été contenue par des sauvetages publics, pas seulement par Bâle III : on retrouve donc nos trois raisons de réguler du début, l'aléa moral et l'externalité.
+Donc il faut compléter : appliquer les règles partout, mieux contrôler le risque de taux, et regarder la finance hors banques. Je pense par exemple aux fonds spéculatifs, qui pèsent 13 000 milliards de dollars selon le FMI, et qui échappent en grande partie à ces règles.
+Pour conclure, Bâle III est une condition nécessaire, mais pas suffisante. Merci de votre attention.</div>
+</section>
+
+<section id="s17">
+  <img class="lg-i" src="../assets/logo-iut.png" alt="IUT de Lille, Roubaix">
+  <h2>Sources</h2>
+  <div class="s17g">
+    <ol>
+      <li><span><b>BRI et Comité de Bâle</b>, Basel Framework ; Basel III (2011, 2017) ; Report on the 2023 banking turmoil ; communiqué du 05/10/2026, (consulté le 20/11/2026)</span></li>
+      <li><span><b>Autorité bancaire européenne</b>, Risk Dashboard T2 2026, (consulté le 20/11/2026)</span></li>
+      <li><span><b>BCE et CRU</b>, supervision bancaire : jalons, liste des banques ; outils de résolution ; enquête sur le crédit, 07/2023, (consulté le 20/11/2026)</span></li>
+      <li><span><b>Commission européenne</b>, garantie des dépôts ; FRTB, 2025 et 2026, (consulté le 20/11/2026)</span></li>
+      <li><span><b>HCSF et Légifrance</b>, coussin contracyclique ; crédit immobilier ; loi 2013-672, (consulté le 20/11/2026)</span></li>
+      <li><span><b>FSB, ESRB, ACPR, AMF</b>, sites officiels, (consulté le 20/11/2026)</span></li>
+      <li><span><b>Cour des comptes européenne</b>, Control of State aid to banks, 2019, (consulté le 20/11/2026)</span></li>
+    </ol>
+    <ol class="c2">
+      <li><span><b>Federal Reserve History et NBC News</b>, Dodd-Frank, Great Recession, Lehman, (consulté le 20/11/2026)</span></li>
+      <li><span><b>Réserve fédérale et FDIC</b>, rapport Barr sur SVB ; communiqués 2023, 2025 et 2026, (consulté le 20/11/2026)</span></li>
+      <li><span><b>SVB, Credit Suisse, UBS</b>, rapport 10-K 2022 de SVB ; résultats T4 2022 ; fusion ; communiqué UBS du 22/04/2026, (consulté le 20/11/2026)</span></li>
+      <li><span><b>FINMA, BNS, Tribunal administratif fédéral</b>, rapport CS, 19/12/2023 ; communiqués 2023 et 2025, (consulté le 20/11/2026)</span></li>
+      <li><span><b>Mayer Brown, swissinfo</b>, mise en œuvre de Bâle III, 2026, (consulté le 20/11/2026)</span></li>
+      <li><span><b>FMI</b>, Global Financial Stability Report, octobre 2026, (consulté le 20/11/2026)</span></li>
+      <li><span><b>Dr. Thomas Liptak</b>, photo de couverture, Frankfurt am Main, Wikimedia Commons, CC BY-SA 4.0, (consulté le 20/11/2026)</span></li>
+    </ol>
+  </div>
+  <p class="pied">Recherche des sources et recoupement des chiffres avec <img class="ia" src="../assets/logo-claude.svg" alt="Claude">Claude.</p>
+  <div class="num">17 / 18</div>
+  <div class="notes">Les chiffres viennent de documents officiels, consultés le 20 novembre 2026. On a utilisé Claude pour chercher et recouper les sources, et chaque chiffre a été relu dans le document d'origine. Les sujets qui évoluent vite, comme la règle américaine et le débat suisse sur UBS, sont datés sur les slides.</div>
+</section>
+
+<section id="s18" class="merci">
+  <img class="lg-i" src="../assets/logo-iut.png" alt="IUT de Lille, Roubaix">
+  <h2>Merci<small>de votre attention</small></h2>
+  <div class="notes">Merci de votre attention. Nous sommes à votre disposition pour répondre à vos questions.</div>
+</section>
+
+<div class="toast"></div>
+
+<script>
+const secs=[...document.querySelectorAll('section')];
+let i=0;
+/* ---------- notes orateur modifiables (touche N) : clic pour écrire, Échap pour sortir, C pour copier ---------- */
+const CLE_N='notes-expose-fre-reguler-fr-v3';
+let notesPerso={}; try{notesPerso=JSON.parse(localStorage.getItem(CLE_N)||'{}')}catch(e){notesPerso={}}
+const sauverNotes=()=>{try{localStorage.setItem(CLE_N,JSON.stringify(notesPerso))}catch(e){}};
+const notesEls=[...document.querySelectorAll('section .notes')];
+notesEls.forEach(n=>{const id=n.closest('section').id; n._orig=n.innerText.trim(); n.contentEditable='true'; n.spellcheck=true;
+  n.dataset.aide='Clic pour modifier · Échap pour sortir · C pour copier';
+  if(notesPerso[id]!=null){ if(notesPerso[id]===n._orig) delete notesPerso[id]; else n.innerText=notesPerso[id]; }
+  n.addEventListener('input',()=>{const t=n.innerText.trim(); if(t===n._orig) delete notesPerso[id]; else notesPerso[id]=t; sauverNotes();});
+});
+const toast=document.querySelector('.toast');
+function prevenir(t){toast.textContent=t; toast.classList.add('on'); clearTimeout(prevenir._t); prevenir._t=setTimeout(()=>toast.classList.remove('on'),2200);}
+function copier(txt){ if(navigator.clipboard&&navigator.clipboard.writeText) return navigator.clipboard.writeText(txt).catch(()=>{});
+  const a=document.createElement('textarea'); a.value=txt; document.body.appendChild(a); a.select(); try{document.execCommand('copy')}catch(e){} a.remove(); }
+function toutCopier(){
+  const tout={}; notesEls.forEach(n=>{const sec=n.closest('section'), id=sec.id; if(notesPerso[id]!=null) tout['notes|'+id+' (slide '+(secs.indexOf(sec)+1)+')']=notesPerso[id];});
+  copier(JSON.stringify(tout,null,1));
+  const nb=Object.keys(notesPerso).length; prevenir('Copié : '+(nb?nb+' note(s) modifiée(s)':'aucune note modifiée'));
+}
+/* ---------- navigation ---------- */
+const liens=[...document.querySelectorAll('.rail a[href^="#s"]')];
+const barre=document.querySelector('.rail .bar i');
+function maj(){ secs.forEach((s,k)=>s.classList.toggle('ici',k===i)); liens.forEach((a,k)=>a.classList.toggle('on',k===i)); if(barre) barre.style.height=((i+1)/secs.length*100)+'%'; centrerRail(); fonduRail(); }
+function centrerRail(){const L=document.querySelector('.rail .liens'),a=liens[i]; if(!L||!a||L.scrollHeight<=L.clientHeight+1) return; L.scrollTo({top:L.scrollTop+a.getBoundingClientRect().top-L.getBoundingClientRect().top-L.clientHeight/2+a.offsetHeight/2,behavior:'smooth'});}
+function fonduRail(){const L=document.querySelector('.rail .liens'); if(!L) return; const R=L.getBoundingClientRect(), zone=Math.max(60,R.height*.2), haut=L.scrollTop>2, bas=L.scrollTop+L.clientHeight<L.scrollHeight-2; liens.forEach(a=>{const r=a.getBoundingClientRect(); let t=1; if(haut) t=Math.min(t,(r.top+r.height/2-R.top)/zone); if(bas) t=Math.min(t,(R.bottom-(r.top+r.height/2))/zone); t=Math.max(0,Math.min(1,t)); a.style.transform='scale('+(.45+.55*t).toFixed(3)+')'; a.style.opacity=(.3+.7*t).toFixed(3);});}
+(function(){const L=document.querySelector('.rail .liens'); if(L){L.addEventListener('scroll',fonduRail,{passive:true});} addEventListener('resize',fonduRail); fonduRail();})();
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){i=secs.indexOf(e.target);maj();}})},{threshold:.6});
+secs.forEach(s=>io.observe(s)); maj();
+function aller(n){i=Math.max(0,Math.min(secs.length-1,n));secs[i].scrollIntoView({behavior:'smooth'});}
+addEventListener('keydown',e=>{
+  const k=e.key;
+  if(document.activeElement&&document.activeElement.classList&&document.activeElement.classList.contains('notes')){ if(k==='Escape'){e.preventDefault();document.activeElement.blur();} return; }
+  if((k==='c'||k==='C')&&!e.metaKey&&!e.ctrlKey){toutCopier();return;}
+  if(k==='n'||k==='N'){document.body.classList.toggle('notesvues');return;}
+  if(['ArrowDown','ArrowRight','PageDown',' '].includes(k)){e.preventDefault();aller(i+1);}
+  else if(['ArrowUp','ArrowLeft','PageUp'].includes(k)){e.preventDefault();aller(i-1);}
+  else if(k==='Home'){e.preventDefault();aller(0);}
+  else if(k==='End'){e.preventDefault();aller(secs.length-1);}
+});
+</script>
+</body>
+</html>
